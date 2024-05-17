@@ -21,6 +21,8 @@ class Person
     private bool $isPlayer;
     #[ORM\Column(type: 'boolean')]
     private bool $isTeacher;
+    #[ORM\ManyToOne( inversedBy: 'players')]
+    private ?Team $team = null;
 
     public function getId(): int
     {
@@ -77,4 +79,15 @@ class Person
         $this->isTeacher = $isTeacher;
     }
 
+    public function getTeam(): ?Team
+    {
+        return $this->team;
+    }
+
+    public function setTeam(?Team $team): static
+    {
+        $this->team = $team;
+
+        return $this;
+    }
 }
