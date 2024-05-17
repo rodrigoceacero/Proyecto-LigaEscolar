@@ -21,9 +21,13 @@ class Sport
     #[ORM\OneToMany(targetEntity: GameMatch::class, mappedBy: 'sport')]
     private Collection $matchs;
 
+    #[ORM\OneToMany(targetEntity: Team::class, mappedBy: 'sport')]
+    private Collection $teams;
+
     public function __construct()
     {
         $this->matchs = new ArrayCollection();
+        $this->teams = new ArrayCollection();
     }
 
     public function getId(): int
@@ -77,6 +81,35 @@ class Sport
             }
         }
 
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Team>
+     */
+    public function getTeams(): Collection
+    {
+        return $this->teams;
+    }
+
+    public function addTeam(Team $team): static
+    {
+        if (!$this->teams->contains($team)) {
+            $this->teams->add($team);
+            $team->setSport($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTeam(Team $team): static
+    {
+        if ($this->teams->removeElement($team)) {
+            if ($team->getSport() === $this) {
+                $team->setSport(null);
+            }
+        }
+ 
         return $this;
     }
 }
