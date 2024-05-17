@@ -19,12 +19,10 @@ class GameMatch
     private ?string $status;
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $details;
-    #[ORM\ManyToOne(targetEntity: Sport::class, inversedBy: 'matchs')]
-    #[ORM\JoinColumn(nullable: false)]
-    private Sport $sport;
-
     #[ORM\ManyToOne(inversedBy: 'matchs')]
     private ?Season $season = null;
+    #[ORM\ManyToOne(inversedBy: 'matchs')]
+    private ?Sport $sport = null;
 
     public function getId(): int
     {
@@ -71,17 +69,6 @@ class GameMatch
         $this->details = $details;
     }
 
-    public function getSport(): ?Sport
-    {
-        return $this->sport;
-    }
-
-    public function setSport(Sport $sport): GameMatch
-    {
-        $this->sport = $sport;
-        return $this;
-    }
-
     public function getSeason(): ?Season
     {
         return $this->season;
@@ -90,6 +77,18 @@ class GameMatch
     public function setSeason(?Season $season): static
     {
         $this->season = $season;
+
+        return $this;
+    }
+
+    public function getSport(): ?Sport
+    {
+        return $this->sport;
+    }
+
+    public function setSport(?Sport $sport): static
+    {
+        $this->sport = $sport;
 
         return $this;
     }
