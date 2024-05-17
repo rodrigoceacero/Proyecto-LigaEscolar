@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
@@ -23,6 +25,13 @@ class GameMatch
     private ?Season $season = null;
     #[ORM\ManyToOne(inversedBy: 'matchs')]
     private ?Sport $sport = null;
+    #[ORM\OneToMany(targetEntity: TeamMatchGame::class, mappedBy: 'gameMatch')]
+    private Collection $teams;
+
+    public function __construct()
+    {
+        $this->teams = new ArrayCollection();
+    }
 
     public function getId(): int
     {
@@ -89,6 +98,35 @@ class GameMatch
     public function setSport(?Sport $sport): static
     {
         $this->sport = $sport;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TeamMatchGame>
+     */
+    public function getTeams(): Collection
+    {
+        return $this->teams;
+    }
+
+    public function addTeam(TeamMatchGame $team): static
+    {
+        if (!$this->teams->contains($team)) {
+            $this->teams->add($team);
+            $team->setGameMatch($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTeam(TeamMatchGame $team): static
+    {
+        if ($this->teams->removeElement($team)) {
+            if ($team->getGameMatch() === $this) {
+                $team->setGameMatch(null);
+            }
+        }
 
         return $this;
     }
