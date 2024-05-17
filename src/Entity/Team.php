@@ -21,9 +21,16 @@ class Team
     #[ORM\OneToMany(targetEntity: Person::class, mappedBy: 'team')]
     private Collection $players;
 
+    #[ORM\ManyToOne(inversedBy: 'teams')]
+    private ?Sport $sport = null;
+
+    #[ORM\ManyToMany(targetEntity: Season::class, mappedBy: 'teams')]
+    private Collection $seasons;
+
     public function __construct()
     {
         $this->players = new ArrayCollection();
+        $this->seasons = new ArrayCollection();
     }
 
     public function getId(): int
@@ -75,6 +82,45 @@ class Team
             if ($player->getTeam() === $this) {
                 $player->setTeam(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getSport(): ?Sport
+    {
+        return $this->sport;
+    }
+
+    public function setSport(?Sport $sport): static
+    {
+        $this->sport = $sport;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Season>
+     */
+    public function getSeasons(): Collection
+    {
+        return $this->seasons;
+    }
+
+    public function addSeason(Season $season): static
+    {
+        if (!$this->seasons->contains($season)) {
+            $this->seasons->add($season);
+            $season->addTeam($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSeason(Season $season): static
+    {
+        if ($this->seasons->removeElement($season)) {
+            $season->removeTeam($this);
         }
 
         return $this;
