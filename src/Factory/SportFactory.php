@@ -47,8 +47,8 @@ final class SportFactory extends ModelFactory
     protected function getDefaults(): array
     {
         return [
-            'duration' => self::faker()->randomNumber(),
-            'name' => self::faker()->text(),
+            'duration' => self::faker()->numberBetween(1,90),
+            'name' => self::faker()->sentence(),
         ];
     }
 

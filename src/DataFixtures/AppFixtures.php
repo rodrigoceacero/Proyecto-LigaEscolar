@@ -2,10 +2,12 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Sport;
 use App\Entity\User;
 use App\Factory\PersonFactory;
 use App\Factory\TeamFactory;
 use App\Factory\UserFactory;
+use App\Factory\SportFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -60,10 +62,47 @@ class AppFixtures extends Fixture
         ]);
 
         /*
+            CREAR DATOS DE PRUEBA DE DEPORTES
+        */
+        SportFactory::createOne([
+            'name' => 'Fútbol 7',
+            'duration' => 90
+        ]);
+
+        SportFactory::createOne([
+            'name' => 'Baloncesto',
+            'duration' => 40
+        ]);
+
+        SportFactory::createOne([
+            'name' => 'Fútbol sala',
+            'duration' => 40
+        ]);
+
+        SportFactory::createOne([
+            'name' => 'Balonmano',
+            'duration' => 60
+        ]);
+
+        SportFactory::createOne([
+            'name' => 'Voleyball',
+            'duration' => 60
+        ]);
+
+        SportFactory::createOne([
+            'name' => 'Badmintón',
+            'duration' => 12
+        ]);
+        
+        /*
             CREAR DATOS DE PRUEBA DE EQUIPOS
         */
         $faker = Factory::create();
-        $teams = TeamFactory::createMany(5);
+        $teams = TeamFactory::createMany(5, function() {
+            return [
+                'sport' => SportFactory::random()
+            ];
+        });
 
         foreach ($teams as $team) {
             /*
