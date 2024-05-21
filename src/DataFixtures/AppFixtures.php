@@ -8,6 +8,7 @@ use App\Factory\PersonFactory;
 use App\Factory\TeamFactory;
 use App\Factory\UserFactory;
 use App\Factory\SportFactory;
+use App\Factory\SeasonFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -95,7 +96,7 @@ class AppFixtures extends Fixture
         ]);
         
         /*
-            CREAR DATOS DE PRUEBA DE EQUIPOS
+            CREAR DATOS DE PRUEBA DE EQUIPOS ASIGNÁNDO A CADA EQUIPO UN DEPORTE
         */
         $faker = Factory::create();
         $teams = TeamFactory::createMany(5, function() {
@@ -124,6 +125,29 @@ class AppFixtures extends Fixture
             }
         }
         
+        SeasonFactory::createOne([
+            'description' => '2020/21',
+            'startDate' => new \DateTime('2020/01/1'),
+            'endDate' => new \DateTime('2021/01/1')
+        ]);
+
+        SeasonFactory::createOne([
+            'description' => '2021/22',
+            'startDate' => new \DateTime('2021/01/1'),
+            'endDate' => new \DateTime('2022/01/1')
+        ]);
+
+        SeasonFactory::createOne([
+            'description' => '2022/23',
+            'startDate' => new \DateTime('2022/01/1'),
+            'endDate' => new \DateTime('2023/01/1')
+        ]);
+
+        SeasonFactory::createOne([
+            'description' => '2023/24',
+            'startDate' => new \DateTime('2023/01/1'),
+            'endDate' => new \DateTime('2024/01/1')
+        ]);
         // $product = new Product();
         // $manager->persist($product);
         $manager->flush();
