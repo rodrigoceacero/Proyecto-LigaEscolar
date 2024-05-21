@@ -46,9 +46,10 @@ final class TeamFactory extends ModelFactory
      */
     protected function getDefaults(): array
     {
+        $teamName = self::faker()->company() . ' ' . self::faker()->companySuffix();
         return [
-            'name' => self::faker()->text(),
-            'school' => self::faker()->text(),
+            'name' => $teamName,
+            'school' => 'Escuela de ' . $teamName 
         ];
     }
 
