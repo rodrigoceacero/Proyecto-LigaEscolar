@@ -21,7 +21,7 @@ class SecurityController extends AbstractController
     }
 
     #[Route('/logout', name: 'logout')]
-    public function logout(): Response
+    public function logout(): void
     {
         throw new \LogicException('Esto no debería ocurrir');
     }

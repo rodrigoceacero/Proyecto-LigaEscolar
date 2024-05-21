@@ -1,23 +1,37 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Inicio de sesión{% endblock %}
+{% block title %} Inicio de sesión{% endblock %}
+
+{% block header %}{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <h1>INICIO DE SESIÓN</h1>
-        {% if error %}
-            <div class="alert alert-danger alert-dismissible">
-                {{ error.messageKey|trans(error.messageData, 'security')}}
+<div class="container d-flex align-items-center justify-content-center vh-100">
+    <div class="row justify-content-center">
+        <div class="col-md-6 w-100">
+        <h1 class="text-center text-white">Liga Escolar</h1>
+            <div class="card border shadow p-3 mb-5 bg-dark rounded">
+                <div class="card-body bg-dark">
+                    <form method="post">
+                        <h1 class="text-center text-white">Inicio de Sesión</h1>
+                        {% if error %}
+                            <p class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security')}}</p>
+                        {% endif %}
+                        <div class="form-group">
+                            <label for="_username" class="text-white">Usuario</label>
+                            <input type="text" {% if error %} value="{{ last_username }}" {% endif %} name="_username" class="form-control" placeholder="Usuario" required {% if not error %} autofocus {% endif %}>
+                        </div>
+                        <div class="form-group">
+                            <label for="_password" class="text-white">Contraseña</label>
+                            <input type="password" name="_password" class="form-control" placeholder="Contraseña" {% if error %} autofocus {% endif %}>
+                        </div>
+                        <div class="form-group mt-3">
+                            <button type="submit" class="btn btn-outline-secondary btn-block w-100">Entrar</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        {% endif %}
-        <form method="post" class="form">
-            <label for="_username">
-                <input type="text" name="_username" value="{{ last_username }}" placeholder="Introduce tu usuario" class="form-control" {% if not last_username %}autofocus{% endif %}>
-            </label>
-            <label for="_password">
-                <input type="password" name="_password" placeholder="Introduce tu contraseña" class="form-control" {% if last_username %}autofocus{% endif %}>
-            </label>
-            <button type="submit" class="btn btn-primary">Entrar</button>
-        </form>
+        </div>
     </div>
+</div>
+
 {% endblock %}
