@@ -47,9 +47,10 @@ final class GameMatchFactory extends ModelFactory
     protected function getDefaults(): array
     {
         return [
-            'location' => self::faker()->text(),
-            'schedule' => self::faker()->dateTime(),
-            'status' => self::faker()->text(),
+            'location' => self::faker()->sentence(1),
+            'schedule' => self::faker()->dateTimeBetween('-1 year', '+1 year'),
+            'status' => self::faker()->randomElement(['Programado', 'En curso', 'Terminado']),
+            'details' => self::faker()->text(20),
         ];
     }
 

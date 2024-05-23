@@ -2,10 +2,15 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\GameMatch;
+use App\Entity\Season;
 use App\Entity\Sport;
+use App\Entity\TeamMatchGame;
 use App\Entity\User;
+use App\Factory\GameMatchFactory;
 use App\Factory\PersonFactory;
 use App\Factory\TeamFactory;
+use App\Factory\TeamMatchGameFactory;
 use App\Factory\UserFactory;
 use App\Factory\SportFactory;
 use App\Factory\SeasonFactory;
@@ -96,7 +101,7 @@ class AppFixtures extends Fixture
         ]);
         
         /*
-            CREAR DATOS DE PRUEBA DE EQUIPOS ASIGNÁNDO A CADA EQUIPO UN DEPORTE
+            CREAR DATOS DE PRUEBA DE EQUIPOS ASIGNÁNDOLE A CADA EQUIPO UN DEPORTE
         */
         $faker = Factory::create();
         $teams = TeamFactory::createMany(5, function() {
@@ -148,6 +153,22 @@ class AppFixtures extends Fixture
             'startDate' => new \DateTime('2023/01/1'),
             'endDate' => new \DateTime('2024/01/1')
         ]);
+
+        GameMatchFactory::createMany(10, function(){
+            return [
+                'season' => SeasonFactory::random(),
+                'sport' => SportFactory::random()
+            ];
+        });
+
+        TeamMatchGameFactory::createMany(10 , function() {
+            return [
+                'gameMatch' => GameMatchFactory::random(),
+                'team' => TeamFactory::random()
+            ];
+        });
+
+
         // $product = new Product();
         // $manager->persist($product);
         $manager->flush();

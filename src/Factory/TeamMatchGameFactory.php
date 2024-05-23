@@ -47,9 +47,9 @@ final class TeamMatchGameFactory extends ModelFactory
     protected function getDefaults(): array
     {
         return [
-            'orderNumber' => self::faker()->randomNumber(),
-            'points' => self::faker()->randomNumber(),
-            'score' => self::faker()->randomNumber(),
+            'orderNumber' => self::faker()->boolean(),
+            'points' => self::faker()->randomElement([0,1,3]),
+            'score' => self::faker()->numberBetween(1,50),
         ];
     }
 
