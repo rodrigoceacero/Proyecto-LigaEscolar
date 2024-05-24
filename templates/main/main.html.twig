@@ -1,14 +1,14 @@
-{% extends './base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block header %}
-{% include './navbar.html.twig' %}
+    {% include 'navbar.html.twig' %}
 {% endblock %}
 
 {% block body %}
     <div class="container-fluid light d-flex vh-100 justify-content-center align-items-center text-white" style="cursor:pointer;">
         {% if is_granted('ROLE_DEVELOPER') %}
             <div class="container-fluid light d-flex justify-content-center align-items-center text-white">
-                <p>Hola developer</p>
+                {% include 'team/teamcard.html.twig' %}
             </div>
         {% endif %}
         {% if is_granted('ROLE_ADMIN') %}

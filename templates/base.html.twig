@@ -4,7 +4,6 @@
         <meta charset="UTF-8">
         <title>{% block title %}Liga Escolar{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
@@ -18,9 +17,11 @@
     </head>
     <body class='bg-dark container-fluid'>
         <header>
-            {% block header %}
-            {% include "./navbar.html.twig" %}
-            {% endblock %}
+            <nav>
+                {% block header %}
+                    {% include 'navbar.html.twig' %}
+                {% endblock %}
+            </nav>
         </header>
         {% block body %}
         {% endblock %}
