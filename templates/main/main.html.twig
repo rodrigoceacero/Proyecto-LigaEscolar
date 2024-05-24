@@ -10,10 +10,13 @@
             <div class="container-fluid light d-flex justify-content-center align-items-center text-white">
                 {% include 'team/teamcard.html.twig' %}
                 {% include 'sport/sportcard.html.twig' %}
+                {% include 'person/personcard.html.twig' %}
             </div>
         {% else %}
             <div class="container-fluid light d-flex justify-content-center align-items-center text-white">
                 {% include 'team/teamcard.html.twig' %}
+                {% include 'sport/sportcard.html.twig' %}
+                {% include 'person/personcard.html.twig' %}
             </div>
         {% endif %}
     </div>
