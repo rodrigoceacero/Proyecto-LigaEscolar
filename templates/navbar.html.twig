@@ -1,7 +1,9 @@
 {% set current_path = app.request.get('_route')|split('_') %}
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" style='font-size: 3rem; font-weight: bold' href="{{path('main_app')}}"> Liga Escolar</a>
+        <a class="navbar-brand" style='font-size: 3rem; font-weight: bold' href="{{path('main_app')}}">
+            <img src="{{ asset('img/ligaescolar-logo.png') }}" alt="SLM" style="height: 5.5rem; margin-right: 10px;">School League Management
+        </a>
         {# <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
