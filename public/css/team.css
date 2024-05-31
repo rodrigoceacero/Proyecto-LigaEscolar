@@ -1,0 +1,93 @@
+body{
+    background-color: #0E3B43;
+    font-family: 'Lato-Regular', sans-serif;
+}
+
+.cabecera-crud {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+
+.contenedor-izquierda {
+    flex-grow: 1;
+}
+
+.contenedor-derecha {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.h2-titulo {
+    font-family: 'Lato-Regular', sans-serif;
+    color: #B9CBC0;
+    font-size: 3rem;
+    margin-left: 4rem;
+}
+
+.boton-agregar {
+    border: 2px solid white;
+    border-radius: 20px;
+    background-color: #3A3951;
+    font-size: 1.5rem;
+    color: #B9CBC0;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    display: inline-flex;
+    align-items: center;
+    margin-right: 4rem;
+}
+
+.a-botones{
+    font-size: 1.5rem;
+    margin: 0.5rem;
+    text-align: right;
+    color: white;
+    text-decoration: none;
+}
+
+.icono-agregar{
+    background-color: white;
+    border-radius: 10px;
+    color: #538ce5;
+}
+
+.icono-eliminar{
+    color: red;
+}
+
+.icono-editar{
+    color: #0E3B43;
+}
+
+.texto-centro{
+    text-align: center;
+}
+
+.tabla{
+    color: #F7F3F6;
+    margin: 0 4rem 0 4rem;
+    font-family: 'Lato-Regular', sans-serif ;
+    background-color: #B9CBC0;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+}
+
+.tabla-thead{
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, tr, td {
+    border: 3px solid white;
+    padding: 8px;
+    text-align: left;
+    white-space: nowrap;
+}
