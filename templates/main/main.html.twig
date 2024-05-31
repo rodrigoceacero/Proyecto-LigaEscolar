@@ -1,13 +1,18 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+{% endblock %}
+
 {% block header %}
     {% include 'navbar.html.twig' %}
 {% endblock %}
 
 {% block body %}
-    <div class="container-fluid light d-flex vh-100 justify-content-center align-items-center text-white" style="cursor:pointer;">
+    <div>
         {% if is_granted('ROLE_DEVELOPER') or is_granted('ROLE_ADMIN')%}
-            <div class="container-fluid light d-flex justify-content-center align-items-center text-white">
+            <div>
                 {% include 'team/teamcard.html.twig' %}
                 {% include 'sport/sportcard.html.twig' %}
                 {% include 'person/personcard.html.twig' %}
@@ -15,7 +20,7 @@
                 {% include 'season/seasoncard.html.twig' %}
             </div>
         {% else %}
-            <div class="container-fluid light d-flex justify-content-center align-items-center text-white">
+            <div>
                 {% include 'team/teamcard.html.twig' %}
                 {% include 'sport/sportcard.html.twig' %}
                 {% include 'match/matchcard.html.twig' %}
