@@ -17,7 +17,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 15px;
-    background-color: #1F1F1F;
+    background-color: #3E3D3D;
 }
 
 .contenedor-izquierda,
@@ -51,7 +51,7 @@
 }
 
 .dropdown-boton, .dropdown-usuario{
-    background-color: #1F1F1F;
+    background-color: #3E3D3D;
     color: white;
     font-family: 'Lato-Light', sans-serif;
     border: none;
@@ -71,12 +71,13 @@
 .dropdown-contenido {
     display: none;
     position: absolute;
+    border-radius: 5px;
     right: 0;
-    background-color: #1F1F1F;
+    background-color: #353537;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
     width: 300px;
-    padding: 20px;
+    padding: 10px;
 }
 
 .dropdown-contenido.show {
