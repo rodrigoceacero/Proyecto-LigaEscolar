@@ -23,11 +23,12 @@
             <a href="{{path('new_team')}}" class="a-botones texto-centro"><i class="ti ti-plus icono-agregar"></i> Añadir</a>
         </div>
     </div>
-
-    <div class="contenido">
-            {% for team in teams %}
-                <div class="equipo">
+        {% for team in teams %}
+            <div class="registro">
+                <div class="registro-info">
                     <p>{{ team.name }}</p>
+                </div>
+                <div class="acciones">
                     <div class="contenedor-eliminar">
                         <a href="{{path('main_app')}}" class="a-botones texto-centro"><i class="ti ti-trash icono-eliminar"></i></a>
                     </div>
@@ -35,15 +36,15 @@
                         <a href="{{path('main_app')}}" class="a-botones texto-centro"><i class="ti ti-edit icono-editar"></i></a>
                     </div>
                     <div class="contenedor-desplegar">
-                        <i class="ti ti-edit icono-editar"></i>
+                        <i class="ti ti-caret-down-filled icono-desplegar"></i>
                     </div>
                 </div>
-            {% else %}
-                <p>
-                    No hay equipos
-                </p>
-            {% endfor %}
-    </div>
+            </div>
+        {% else %}
+            <p>
+                No hay equipos
+            </p>
+        {% endfor %}
 {% endblock %}
 
 
