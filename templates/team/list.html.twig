@@ -16,40 +16,33 @@
     <div class="cabecera-crud">
         <div class="contenedor-izquierda">
             <h2 class="h2-titulo">
-                Equipos inscritos
+                Equipos
             </h2>
         </div>
         <div class="contenedor-derecha boton-agregar">
-            <a href="{{path('new_team')}}" class="a-botones texto-centro"><i class="ti ti-plus icono-agregar"></i> Añadir equipo</a>
+            <a href="{{path('new_team')}}" class="a-botones texto-centro"><i class="ti ti-plus icono-agregar"></i> Añadir</a>
         </div>
     </div>
 
-    <div class="tabla">
-        <table>
-            <thead class="tabla-thead">
-                <tr>
-                    <th class="texto-centro">Nombre</th>
-                    <th class="texto-centro">Lugar</th>
-                    <th class="texto-centro">Deporte</th>
-                    <th class="texto-centro" colspan="2"></th>
-                </tr>
-            </thead>
-            <tbody>
+    <div class="contenido">
             {% for team in teams %}
-                <tr>
-                    <td>{{ team.name }}</td>
-                    <td>{{ team.school }}</td>
-                    <td>{{ team.sport.name }}</td>
-                    <td class="texto-centro"><a href="{{path('main_app')}}" class="a-botones texto-centro"><i class="ti ti-trash icono-eliminar"></i></a></td>
-                    <td class="texto-centro"><a href="{{path('main_app')}}" class="a-botones texto-centro"><i class="ti ti-edit icono-editar"></i></a></td>
-                </tr>
+                <div class="equipo">
+                    <p>{{ team.name }}</p>
+                    <div class="contenedor-eliminar">
+                        <a href="{{path('main_app')}}" class="a-botones texto-centro"><i class="ti ti-trash icono-eliminar"></i></a>
+                    </div>
+                    <div class="contenedor-editar">
+                        <a href="{{path('main_app')}}" class="a-botones texto-centro"><i class="ti ti-edit icono-editar"></i></a>
+                    </div>
+                    <div class="contenedor-desplegar">
+                        <i class="ti ti-edit icono-editar"></i>
+                    </div>
+                </div>
             {% else %}
-                <tr>
-                    <td colspan="2">No hay equipos</td>
-                </tr>
+                <p>
+                    No hay equipos
+                </p>
             {% endfor %}
-            </tbody>
-        </table>
     </div>
 {% endblock %}
 

@@ -31,7 +31,7 @@
 
 .h2-titulo {
     font-family: 'Lato-Regular', sans-serif;
-    color: white;
+    color: #00001B;
     font-size: 3rem;
     margin-left: 4rem;
 }
@@ -39,7 +39,7 @@
 .boton-agregar {
     border: 2px solid white;
     border-radius: 20px;
-    background-color: #3A3951;
+    background-color: #ff6a64;
     font-size: 1.5rem;
     color: white;
     text-decoration: none;
@@ -50,17 +50,17 @@
 }
 
 .a-botones{
+    font-family: 'Lato-Regular', sans-serif;
     font-size: 1.5rem;
     margin: 0.5rem;
     text-align: right;
-    color: white;
+    color: #00001B;
     text-decoration: none;
 }
 
 .icono-agregar{
-    background-color: white;
     border-radius: 10px;
-    color: #538ce5;
+    color: #00001B;
 }
 
 .icono-eliminar{
@@ -75,13 +75,18 @@
     text-align: center;
 }
 
-.tabla{
-    color: #F7F3F6;
+.contenido{
+    color: white;
     margin: 0 4rem 0 4rem;
     font-family: 'Lato-Regular', sans-serif ;
-    background-color: #B9CBC0;
+    background-color: #ffa19d;
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
+}
+
+.equipo{
+    margin: 30px;
+    font-size: 1.8rem;
 }
 
 .tabla-thead{
