@@ -1,0 +1,111 @@
+@font-face {
+    font-family: 'Lato-Regular';
+    src: url("../fonts/Lato/Lato-Regular.ttf");
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Lato-Light';
+    src: url("../fonts/Lato/Lato-Light.ttf");
+    font-weight: 200;
+    font-style: normal;
+}
+
+.barra-navegacion{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    background-color: #1F1F1F;
+}
+
+.contenedor-izquierda,
+.contenedor-derecha {
+    display: flex;
+    align-items: center;
+}
+
+.titulo{
+    font-family: 'Lato-Regular', sans-serif;
+    display: flex;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.titulo:hover{
+    color: white;
+}
+
+.logo-navbar{
+    height: 5.5rem;
+    margin-right: 20px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-boton, .dropdown-usuario{
+    background-color: #1F1F1F;
+    color: white;
+    font-family: 'Lato-Light', sans-serif;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    padding: 10px;
+}
+
+.conectado,
+.desconectar{
+    border-radius: 10px;
+    padding: 5px;
+    background-color: #323131;
+    width: 250px;
+}
+
+.dropdown-contenido {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #1F1F1F;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    width: 300px;
+    padding: 20px;
+}
+
+.dropdown-contenido.show {
+    display: block;
+}
+
+.dropdown-contenido .usuario-conectado {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+}
+
+.dropdown-contenido .usuario-conectado div {
+    margin: 10px 0;
+}
+
+.usuario-conectado a {
+    color: white;
+    text-decoration: none;
+    font-family: 'Lato-Regular', sans-serif;
+}
+
+.usuario-conectado a:hover {
+    text-decoration: underline;
+}
+
+.conectado a:hover{
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
+}
