@@ -13,6 +13,10 @@
 }
 
 .barra-navegacion{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -55,6 +59,7 @@
 .dropdown {
     position: relative;
     display: inline-block;
+    margin-right: 50px;
 }
 
 .dropdown-boton, .dropdown-usuario{
@@ -85,6 +90,7 @@
     z-index: 1;
     width: 300px;
     padding: 10px;
+    opacity: 0.9;
 }
 
 .dropdown-contenido.show {
@@ -115,5 +121,9 @@
 .conectado a:hover{
     cursor: pointer;
     color: white;
+    text-decoration: none;
+}
+
+.desconectar a:hover{
     text-decoration: none;
 }

@@ -14,6 +14,7 @@
 
 .cabecera-crud {
     display: flex;
+    margin-top: 100px;
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
@@ -103,9 +104,6 @@
     align-items: center;
     width: 40px;
     height: 40px;
-    -webkit-box-shadow: 3px 3px 6px 1px rgba(255,161,157,0.26);
-    -moz-box-shadow: 3px 3px 6px 1px rgba(255,161,157,0.26);
-    box-shadow: 3px 3px 6px 1px rgba(255,161,157,0.26);
 }
 
 .icono-agregar,
