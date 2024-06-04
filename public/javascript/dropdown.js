@@ -5,15 +5,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     dropdownBoton.addEventListener('click', function () {
         dropdownContenido.classList.toggle('show');
-        dropdownFlecha.classList.toggle('ti-caret-down');
-        dropdownFlecha.classList.toggle('ti-caret-up');
+        dropdownFlecha.classList.toggle('ti-chevron-down');
+        dropdownFlecha.classList.toggle('ti-chevron-up');
     });
 
     window.addEventListener('click', function (e) {
         if (!dropdownBoton.contains(e.target) && !dropdownContenido.contains(e.target)) {
             dropdownContenido.classList.remove('show');
-            dropdownFlecha.classList.add('ti-caret-down');
-            dropdownFlecha.classList.remove('ti-caret-up');
+            dropdownFlecha.classList.add('ti-chevron-down');
+            dropdownFlecha.classList.remove('ti-chevron-up');
         }
     });
 });
