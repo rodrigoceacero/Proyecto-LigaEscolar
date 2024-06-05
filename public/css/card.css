@@ -18,6 +18,11 @@
     font-weight: 500;
     font-style: normal;
 }
+body {
+    background-color: #ffe6e6;
+    margin: 100px 0 100px 0;
+    padding: 0;
+}
 
 .cabecera-crud {
     display: flex;
