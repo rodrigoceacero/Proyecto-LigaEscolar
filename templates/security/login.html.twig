@@ -2,30 +2,37 @@
 
 {% block title %} Inicio de sesión{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+{% endblock %}
+
 {% block header %}{% endblock %}
 
 {% block body %}
-<div class="container d-flex align-items-center justify-content-center vh-100">
-    <div class="row justify-content-center">
-        <div class="col-md-6 w-100">
-        <h1 class="text-center text-white">School League Management</h1>
-            <div class="card border shadow p-3 mb-5 bg-dark rounded">
-                <div class="card-body bg-dark">
+<div class="contenedor">
+    <div>
+        <div>
+            <h1 class="titulo">School League Management</h1>
+            <div class="card">
+                <div class="card-body">
                     <form method="post">
-                        <h1 class="text-center text-white">Iniciar sesión</h1>
+                        <div class="contenedor-arriba">
+                            <img src="{{ asset('img/ligaescolar-logo.png') }}" alt="SLM" class="logo">
+                            <h1 class="inicio-sesion">Iniciar sesión</h1>
+                        </div>
                         {% if error %}
-                            <p class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security')}}</p>
+                            <p class="error">{{ error.messageKey|trans(error.messageData, 'security')}}</p>
                         {% endif %}
-                        <div class="form-group">
-                            <label for="_username" class="text-white">Usuario</label>
+                        <div class="form-input">
+                            <label for="_username" class="text-usuario">Usuario</label>
                             <input type="text" {% if error %} value="{{ last_username }}" {% endif %} name="_username" class="form-control" placeholder="Usuario" required {% if not error %} autofocus {% endif %}>
                         </div>
-                        <div class="form-group">
-                            <label for="_password" class="text-white">Contraseña</label>
+                        <div class="form-input">
+                            <label for="_password" class="text-password">Contraseña</label>
                             <input type="password" name="_password" class="form-control" placeholder="Contraseña" {% if error %} autofocus {% endif %}>
                         </div>
-                        <div class="form-group mt-3">
-                            <button type="submit" class="btn btn-outline-secondary btn-block w-100">Entrar</button>
+                        <div class="form-input">
+                            <button type="submit" class="btn btn-block">Entrar</button>
                         </div>
                     </form>
                 </div>
