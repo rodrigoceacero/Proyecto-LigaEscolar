@@ -31,6 +31,9 @@
             <div class="card">
                 {% include 'season/seasoncard.html.twig' %}
             </div>
+            <div class="card">
+                {% include 'users/usercard.html.twig' %}
+            </div>
         {% else %}
             <div class="card">
                 {% include 'team/teamcard.html.twig' %}
@@ -40,6 +43,9 @@
             </div>
             <div class="card">
                 {% include 'match/matchcard.html.twig' %}
+            </div>
+            <div class="card">
+                {% include 'season/seasoncard.html.twig' %}
             </div>
         {% endif %}
     </div>
