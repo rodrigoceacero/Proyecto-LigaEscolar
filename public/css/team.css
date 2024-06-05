@@ -21,7 +21,6 @@
 
 .cabecera-crud {
     display: flex;
-    margin-top: 100px;
     justify-content: space-between;
     align-items: center;
     padding: 1rem;

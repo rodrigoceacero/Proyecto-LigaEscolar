@@ -1,10 +1,10 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-    <div class="border border-white rounded text-center d-grid" style="height: 100%; width: 50%;">
-        <a href="{{path('players')}}" class="text-white text-decoration-none fs-5">
-            <i class="ti ti-friends" style='font-size: 8rem;'></i>
+    <a href="{{path('players')}}">
+        <div>
+            <i class="ti ti-friends"></i>
             <h3>Jugadores</h3>
-        </a>
-    </div>
+        </div>
+    </a>
 {% endblock %}

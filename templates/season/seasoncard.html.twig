@@ -1,10 +1,10 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-    <div class="border border-white rounded text-center d-grid" style="height: 100%; width: 50%;">
-        <a href="{{path('seasons')}}" class="text-white text-decoration-none fs-5">
-            <i class="ti ti-calendar-time" style='font-size: 8rem;'></i>
+    <a href="{{path('seasons')}}">
+        <div>
+            <i class="ti ti-calendar-time"></i>
             <h3>Temporadas</h3>
-        </a>
-    </div>
+        </div>
+    </a>
 {% endblock %}

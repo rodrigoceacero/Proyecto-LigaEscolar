@@ -1,11 +1,10 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-    <div class="border border-white rounded text-center d-grid" style="height: 100%; width: 50%;">
-        <a href="{{path('teams')}}" class="text-white text-decoration-none fs-5">
-            <i class="ti ti-shirt" style='font-size: 8rem;'></i>
+    <a href="{{path('teams')}}">
+        <div>
+            <i class="ti ti-shirt"></i>
             <h3>Equipos</h3>
-        </a>
-    </div>
+        </div>
+    </a>
 {% endblock %}
-
