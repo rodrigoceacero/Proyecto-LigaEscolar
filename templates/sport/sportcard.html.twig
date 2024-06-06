@@ -1,12 +1,15 @@
 {% extends 'layout.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/card.css') }}">
+{% endblock %}
+
 {% block body %}
     <a href="{{path('sports')}}">
-        <div>
+        <div class="card">
             <i class="ti ti-ball-football"></i>
             <h3>Deportes</h3>
         </div>
-
     </a>
 {% endblock %}
 

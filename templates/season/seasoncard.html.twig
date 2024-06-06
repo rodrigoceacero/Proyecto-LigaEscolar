@@ -1,8 +1,12 @@
 {% extends 'layout.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/card.css') }}">
+{% endblock %}
+
 {% block body %}
     <a href="{{path('seasons')}}">
-        <div>
+        <div class="card">
             <i class="ti ti-calendar-time"></i>
             <h3>Temporadas</h3>
         </div>
