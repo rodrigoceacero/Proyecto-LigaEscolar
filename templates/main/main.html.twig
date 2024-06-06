@@ -12,41 +12,25 @@
 {% block body %}
     <div class="contenedor-entrada">
         <h2 class="h2-main">Bienvenido a School League Management</h2>
-        <h3 class="h3-main">Selecciona la acción que quieres realizar</h3>
+        {% if is_granted('ROLE_DEVELOPER') or is_granted('ROLE_ADMIN') %}
+            <h3 class="h3-main">Selecciona el apartado que quieres gestionar</h3>
+        {% else %}
+            <h3 class="h3-main">Selecciona el apartado que quieres visualizar</h3>
+        {% endif %}
     </div>
     <div class="contenedor">
         {% if is_granted('ROLE_DEVELOPER') or is_granted('ROLE_ADMIN') %}
-            <div class="card">
-                {% include 'team/teamcard.html.twig' %}
-            </div>
-            <div class="card">
-                {% include 'sport/sportcard.html.twig' %}
-            </div>
-            <div class="card">
-                {% include 'person/personcard.html.twig' %}
-            </div>
-            <div class="card">
-                {% include 'match/matchcard.html.twig' %}
-            </div>
-            <div class="card">
-                {% include 'season/seasoncard.html.twig' %}
-            </div>
-            <div class="card">
-                {% include 'users/usercard.html.twig' %}
-            </div>
+            {% include 'team/teamcard.html.twig' %}
+            {% include 'sport/sportcard.html.twig' %}
+            {% include 'person/personcard.html.twig' %}
+            {% include 'match/matchcard.html.twig' %}
+            {% include 'season/seasoncard.html.twig' %}
+            {% include 'users/usercard.html.twig' %}
         {% else %}
-            <div class="card">
-                {% include 'team/teamcard.html.twig' %}
-            </div>
-            <div class="card">
-                {% include 'sport/sportcard.html.twig' %}
-            </div>
-            <div class="card">
-                {% include 'match/matchcard.html.twig' %}
-            </div>
-            <div class="card">
-                {% include 'season/seasoncard.html.twig' %}
-            </div>
+            {% include 'team/teamcard.html.twig' %}
+            {% include 'sport/sportcard.html.twig' %}
+            {% include 'match/matchcard.html.twig' %}
+            {% include 'season/seasoncard.html.twig' %}
         {% endif %}
     </div>
 {% endblock %}
