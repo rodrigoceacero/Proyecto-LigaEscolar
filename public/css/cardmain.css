@@ -1,0 +1,156 @@
+@font-face {
+    font-family: 'Jost-Regular';
+    src: url("../fonts/Jost/static/Jost-Regular.ttf");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Jost-SemiBold700';
+    src: url("../fonts/Jost/static/Jost-Medium.ttf");
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Jost-ExtraLight';
+    src: url("../fonts/Jost/static/Jost-ExtraLight.ttf");
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Jost-Light';
+    src: url("../fonts/Jost/static/Jost-Light.ttf");
+    font-weight: 300;
+    font-style: normal;
+}
+
+body { /*hecho*/
+    background-color: #ffffff;
+    margin: 100px 0 100px 0;
+    padding: 0;
+}
+
+.cabecera-crud { /*hecho*/
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+
+.h2-titulo { /*hecho*/
+    font-family: 'Jost-Medium', sans-serif;
+    color: #00001B;
+    font-size: 2.5rem;
+    margin-left: 4rem;
+}
+
+.boton-agregar { /*hecho*/
+    font-family: 'Jost-Light', sans-serif;
+    border-radius: 10px;
+    background-color: #fbe9e7;
+    font-size: 1.5rem;
+    color: #00001B;
+    text-decoration: none;
+    padding: 1.3rem;
+    margin-right: 4rem;
+    -webkit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,1);
+    -moz-box-shadow: 0px 0px 5px 1px rgba(0,0,0,1);
+    box-shadow: 0px 0px 5px 1px rgba(0,0,0,1);
+}
+
+.a-botones{ /*hecho*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    background-color: #fbe9e7;
+    padding: 1rem;
+    border-radius: 8px;
+    font-family: 'Jost-Regular', sans-serif;
+    font-size: 1.7rem;
+    color: black;
+    -webkit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,1);
+    -moz-box-shadow: 0px 0px 5px 1px rgba(0,0,0,1);
+    box-shadow: 0px 0px 5px 1px rgba(0,0,0,1);
+}
+
+.contenedor-expandir { /*hecho*/
+    background-color: #992a25;
+    margin: 0.5rem 4rem;
+    border-radius: 8px;
+    -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.87);
+    -moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.87);
+    box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.87);
+}
+
+.expandible { /*hecho*/
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 8px;
+}
+
+.iconos { /*hecho*/
+    display: flex;
+    align-items: center;
+}
+
+.boton { /*hecho*/
+    text-decoration: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.desplegar{ /*hecho*/
+    cursor: pointer;
+    margin-right: 10px;
+    padding: 5px;
+}
+
+.contenedor-desplegable { /*hecho*/
+    max-height: 0;
+    overflow: hidden;
+}
+
+.contenedor-desplegable.expanded { /*hecho*/
+    background-color: #992a25;
+    max-height: 500px;
+    padding: 15px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.contenedor-informacion-desplegable{ /*DIVS deld esplegable*/ /*hecho*/
+    display: flex;
+    /*flex-direction: column;*/
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.informacion { /*hecho*/
+    border-radius: 8px;
+    background-color: rgb(97, 0, 0);
+    flex: 1 1 calc(33.33% - 10px);
+}
+
+.informacion h3 { /*hecho*/
+    font-family: 'Jost-Medium',sans-serif;
+    font-size: 1.5rem;
+    margin-left: 10px;
+    color: white;
+}
+
+.informacion p { /*hecho*/
+    font-family: 'Jost-SemiBold', sans-serif;
+    font-size: 1.2rem;
+    margin-left: 10px;
+    color: white;
+}

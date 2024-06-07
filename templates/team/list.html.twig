@@ -3,8 +3,12 @@
 {% block title %} Listado de equipos {% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/card.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/cardmain.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('javascript/desplegable.js') }}"></script>
 {% endblock %}
 
 {% block header %}
@@ -13,37 +17,45 @@
 
 {% block body %}
     <div class="cabecera-crud">
-        <div class="contenedor-izquierda">
+        <div>
             <h2 class="h2-titulo">
                 Equipos
             </h2>
         </div>
-        <div class="contenedor-derecha boton-agregar">
-            <a href="{{path('new_team')}}" class="a-botones texto-centro"><i class="ti ti-plus icono-agregar"></i> Añadir</a>
+        {% if is_granted('ROLE_DEVELOPER') or is_granted('ROLE_ADMIN') %}
+        <div>
+            <a href="{{path('new_team')}}" class="boton-agregar"><i class="ti ti-plus icono-agregar"></i> Crear nuevo equipo</a>
         </div>
+        {% endif %}
     </div>
         {% for team in teams %}
-            <div class="registro">
-                <div class="registro-info">
-                    <p>{{ team.name }}</p>
+        <div class="contenedor-principal">
+            <div class="contenedor-expandir">
+                <div class="expandible">
+                    <span class="titulo"><h6>{{ team.name }}</h6></span>
+                    <div class="iconos">
+                        <a href="" class="boton"><i class="ti ti-edit a-botones"></i></a>
+                        <a href="" class="boton"><i class="ti ti-trash a-botones"></i></a>
+                        <span class="desplegar"><i class="ti ti-chevron-down a-botones"></i></span>
+                    </div>
                 </div>
-                <div class="acciones">
-                    <div class="contenedor-eliminar">
-                        <a href="{{path('main_app')}}" class="a-botones texto-centro"><i class="ti ti-trash icono-eliminar"></i></a>
-                    </div>
-                    <div class="contenedor-editar">
-                        <a href="{{path('main_app')}}" class="a-botones texto-centro"><i class="ti ti-edit icono-editar"></i></a>
-                    </div>
-                    <div class="contenedor-desplegar">
-                        <i class="ti ti-chevron-down icono-desplegar"></i>
+                <div class="contenedor-desplegable">
+                    <div class="contenedor-informacion-desplegable">
+                        <div class="informacion">
+                            <h3>Nombre</h3>
+                            <p>{{ team.name }}</p>
+                        </div>
+                        <div class="informacion">
+                            <h3>Escuela</h3>
+                            <p>{{ team.school }}</p>
+                        </div>
+                        <div class="informacion">
+                            <h3>Deporte</h3>
+                            <p>{{ team.sport.name }}</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        {% else %}
-            <p>
-                No hay equipos
-            </p>
         {% endfor %}
+    </div>
 {% endblock %}
-
-
