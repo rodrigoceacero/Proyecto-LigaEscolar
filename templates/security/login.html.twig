@@ -24,15 +24,15 @@
                             <p class="error">{{ error.messageKey|trans(error.messageData, 'security')}}</p>
                         {% endif %}
                         <div class="form-input">
-                            <label for="_username" class="text-usuario">Usuario</label>
+                            <label for="_username">Usuario</label>
                             <input type="text" {% if error %} value="{{ last_username }}" {% endif %} name="_username" class="form-control" placeholder="Usuario" required {% if not error %} autofocus {% endif %}>
                         </div>
                         <div class="form-input">
-                            <label for="_password" class="text-password">Contraseña</label>
+                            <label for="_password">Contraseña</label>
                             <input type="password" name="_password" class="form-control" placeholder="Contraseña" {% if error %} autofocus {% endif %}>
                         </div>
                         <div class="form-input">
-                            <button type="submit" class="btn btn-block">Entrar</button>
+                            <button type="submit" class="boton boton-block">Entrar</button>
                         </div>
                     </form>
                 </div>
