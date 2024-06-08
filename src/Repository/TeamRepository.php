@@ -12,6 +12,18 @@ class TeamRepository extends ServiceEntityRepository
         parent::__construct($registry, Team::class);
     }
 
+    public function findByName(string $name){
+        return $this->createQueryBuilder('t')
+            ->select('t, sport, season')
+            ->leftJoin('t.sport', 'sport')
+            ->leftJoin('t.seasons', 'season')
+            ->where('t.name LIKE :name')
+            ->setParameter('name', $name)
+            ->orderBy('t.name')
+            ->getQuery()
+            ->getResult();
+    }
+
     public function add(Team $team)
     {
         $this->getEntityManager()->persist($team);

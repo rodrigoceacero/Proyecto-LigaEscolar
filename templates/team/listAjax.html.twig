@@ -1,0 +1,38 @@
+{% for team in teams %}
+    <div class="contenedor-principal" id="listar">
+        <div class="contenedor-expandir">
+            <div class="expandible">
+                <span class="titulo"><h6>{{ team.name }}</h6></span>
+                <div class="iconos">
+                    <a href="" class="boton"><i class="ti ti-edit a-botones"></i></a>
+                    <a href="" class="boton"><i class="ti ti-trash a-botones"></i></a>
+                    <span class="desplegar"><i class="ti ti-chevron-down a-botones"></i></span>
+                </div>
+            </div>
+            <div class="contenedor-desplegable">
+                <div class="contenedor-informacion-desplegable">
+                    <div class="informacion">
+                        <h3>Nombre</h3>
+                        <p>{{ team.name }}</p>
+                    </div>
+                    <div class="informacion">
+                        <h3>Escuela</h3>
+                        <p>{{ team.school }}</p>
+                    </div>
+                    <div class="informacion">
+                        <h3>Deporte</h3>
+                        <p>{{ team.sport.name }}</p>
+                    </div>
+                    <div class="informacion">
+                        <h3>Temporadas</h3>
+                        <p> {% for season in team.seasons %}
+                                {{ season.description }}
+                                {% if not loop.last %} - {% endif %}
+                            {% endfor %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}

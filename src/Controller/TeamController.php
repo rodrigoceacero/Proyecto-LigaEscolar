@@ -13,12 +13,26 @@ use Symfony\Component\Routing\Annotation\Route;
 class TeamController extends AbstractController
 {
     #[Route('/team', name:'teams')]
-    public function index(TeamRepository $teamRepository): Response
-    {
-        $teams = $teamRepository->findAll();
+    public function index(
+        Request $request,
+        TeamRepository $teamRepository
+    ): Response {
+        $search = $request->query->get('search', '');
+        $search = '%' . htmlspecialchars($search, ENT_QUOTES, 'UTF-8') . '%';
+        $teams = $teamRepository->findByName($search);
+
+        if ($request->isXmlHttpRequest()) {
+            $content = $this->renderView('team/listAjax.html.twig', ['teams' => $teams]);
+            $found = count($teams) > 0;
+
+            return $this->json([
+                'content' => $content,
+                'found' => $found
+            ]);
+        }
 
         return $this->render('team/list.html.twig', [
-            'teams' => $teams
+            'teams' => $teams,
         ]);
     }
 
