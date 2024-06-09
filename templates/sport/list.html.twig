@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Deportes{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/cardmain.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('javascript/desplegable.js') }}"></script>
+    <script src="{{ asset('javascript/search.js') }}"></script>
+    <script src="{{ asset('javascript/delete.js') }}"></script>
+    {% for message in app.session.flashBag.get('success') %}
+        <script src="{{ asset('javascript/created.js') }}"></script>
+    {% endfor %}
+    {% for message in app.session.flashBag.get('updated') %}
+        <script src="{{ asset('javascript/created.js') }}"></script>
+    {% endfor %}
+{% endblock %}
+
+{% block header %}
+    {% include 'navbar.html.twig' %}
+{% endblock %}
+
+{% block body %}
+    <div class="cabecera-crud">
+        <div>
+            <h2 class="h2-titulo">
+                Deportes
+            </h2>
+        </div>
+        <div class="contenedor-derecha">
+            <div class="contenedor-search {% if not is_granted('ROLE_ADMIN') and not is_granted('ROLE_DEVELOPER') %}contenedor-usuario{% endif %}">
+                <form id="search-form" method="get" action="{{ path('search_sport') }}">
+                    <input type="hidden" name="inactive" value="false">
+                    <input type="text" id="search" name="search" placeholder="Buscar deporte" autofocus="autofocus" value="{{ app.request.get('search') }}" class="input-buscar">
+                    <button type="submit" id="btn-search" class="boton-buscar">
+                        <i class="ti ti-search icono-buscar"></i>
+                    </button>
+                </form>
+            </div>
+            {% if is_granted('ROLE_DEVELOPER') or is_granted('ROLE_ADMIN') %}
+                <div class="contenedor-agregar">
+                    <a href="{{ path('new_sport') }}" class="boton-agregar"><i class="ti ti-circle-plus icono-agregar"></i> Crear nuevo deporte</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div id="listar">
+        {% include 'sport/listAjax.html.twig' %}
+    </div>
+    <div class="contenedor-footer">
+        <div class="volver">
+            <a href="{{ path('main_app') }}" class="boton-volver"><i class="ti ti-arrow-left icono-agregar"></i> Volver</a>
+        </div>
+        {% if is_granted('ROLE_DEVELOPER') or is_granted('ROLE_ADMIN') %}
+            <div class="contenedor-oculto">
+                <a href="{{ path('sports_inactive') }}" class="boton-oculto">Ver deportes ocultos</a>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

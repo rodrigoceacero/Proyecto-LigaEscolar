@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Crear deporte
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/cardmain.css') }}">
+{% endblock %}
+
+{% block header %}
+    {% include 'navbar.html.twig' %}
+{% endblock %}
+
+{% block body %}
+    <div class="contenedor">
+        <div class="contenedor-cabecera">
+            <div>
+                <h2 class="titulo-form">
+                    Añadir datos
+                </h2>
+            </div>
+        </div>
+        <div class="contenedor-form">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <button type="submit" class="btn-guardar-form">Guardar <i class="ti ti-device-floppy"></i></button>
+            {{ form_end(form) }}
+        </div>
+        <div class="volver">
+            <a href="{{ path('sports') }}" class="boton-volver"><i class="ti ti-arrow-left icono-agregar"></i> Volver</a>
+        </div>
+    </div>
+{% endblock %}

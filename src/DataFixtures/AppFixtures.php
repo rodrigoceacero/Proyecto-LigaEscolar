@@ -72,32 +72,38 @@ class AppFixtures extends Fixture
         */
         SportFactory::createOne([
             'name' => 'Fútbol 7',
-            'duration' => 90
+            'duration' => 90,
+            'active' => 1
         ]);
 
         SportFactory::createOne([
             'name' => 'Baloncesto',
-            'duration' => 40
+            'duration' => 40,
+            'active' => 1
         ]);
 
         SportFactory::createOne([
             'name' => 'Fútbol sala',
-            'duration' => 40
+            'duration' => 40,
+            'active' => 1
         ]);
 
         SportFactory::createOne([
             'name' => 'Balonmano',
-            'duration' => 60
+            'duration' => 60,
+            'active' => 1
         ]);
 
         SportFactory::createOne([
             'name' => 'Voleyball',
-            'duration' => 60
+            'duration' => 60,
+            'active' => 1
         ]);
 
         SportFactory::createOne([
             'name' => 'Badmintón',
-            'duration' => 12
+            'duration' => 12,
+            'active' => 1
         ]);
         
         /*

@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'sport')]
@@ -15,14 +16,17 @@ class Sport
     #[ORM\Column(type: 'integer')]
     private ?int $id;
     #[ORM\Column(type: 'string')]
+    #[Assert\NotBlank(message: 'El nombre es obligatorio')]
     private ?string $name;
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank(message: 'La duración del partido es obligatorio')]
     private ?int $duration;
     #[ORM\OneToMany(targetEntity: GameMatch::class, mappedBy: 'sport')]
     private Collection $matchs;
-
     #[ORM\OneToMany(targetEntity: Team::class, mappedBy: 'sport')]
     private Collection $teams;
+    #[ORM\Column(type: 'boolean')]
+    private bool $active = true;
 
     public function __construct()
     {
@@ -53,6 +57,16 @@ class Sport
     public function setDuration(int $duration): void
     {
         $this->duration = $duration;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): void
+    {
+        $this->active = $active;
     }
 
     /**

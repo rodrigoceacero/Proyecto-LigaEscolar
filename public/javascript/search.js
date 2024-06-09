@@ -1,20 +1,25 @@
 document.addEventListener("DOMContentLoaded", function() {
     const searchForm = document.getElementById('search-form');
     const searchInput = document.getElementById('search');
-    const list = document.getElementById('listar');
+    const containerList = document.getElementById('listar');
 
     searchForm.addEventListener('submit', function(event) {
         event.preventDefault();
 
-        const query = searchInput.value;
+        const name = searchInput.value;
+        const inactive = searchForm.querySelector('input[name="inactive"]').value;
+        console.log('Search query:', name); // Log de depuración
 
-        fetch(`${searchForm.action}?search=${encodeURIComponent(query)}`, {
+        fetch(`${searchForm.action}?search=${encodeURIComponent(name)}&inactive=${inactive}`, {
             headers: {
                 'X-Requested-With': 'XMLHttpRequest'
             }
         })
-            .then(response => response.json())
+            .then(response => {
+                return response.json();
+            })
             .then(data => {
+                console.log('Response data:', data); // Log de depuración
                 if (!data.found) {
                     Swal.fire({
                         title: 'No hay equipos con ese nombre, inténtalo de nuevo',
@@ -25,12 +30,18 @@ document.addEventListener("DOMContentLoaded", function() {
                             title: 'titulo-sweet'
                         }
                     });
-                }else{
-                    list.innerHTML = data.content;
+                } else {
+                    containerList.innerHTML = data.content;
                     searchInput.value = '';
                     attachExpandListeners();
+                    attachDeleteListeners();
                 }
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => {
+                console.error('Error:', error);
+            });
     });
+
+    attachExpandListeners();
+    attachDeleteListeners();
 });

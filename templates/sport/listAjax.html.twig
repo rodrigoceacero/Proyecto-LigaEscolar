@@ -1,0 +1,28 @@
+{% for sport in sports %}
+    <div class="contenedor-principal">
+        <div class="contenedor-expandir">
+            <div class="expandible">
+                <span class="titulo"><h6>{{ sport.name }}</h6></span>
+                <div class="iconos">
+                    {% if is_granted('ROLE_DEVELOPER') or is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('sport_edit', {'id': sport.id}) }}" class="boton"><i class="ti ti-edit a-botones"></i></a>
+                        <a href="{{ path('delete_sport', {'id': sport.id}) }}" class="boton btn-delete" data-id="{{ sport.id }}" data-name="{{ sport.name }}"><i class="ti ti-trash a-botones"></i></a>
+                    {% endif %}
+                    <span class="desplegar"><i class="ti ti-chevron-down a-botones"></i></span>
+                </div>
+            </div>
+            <div class="contenedor-desplegable">
+                <div class="contenedor-informacion-desplegable">
+                    <div class="informacion">
+                        <h3>Nombre</h3>
+                        <p>{{ sport.name }}</p>
+                    </div>
+                    <div class="informacion">
+                        <h3>Duración de un partido</h3>
+                        <p>{{ sport.duration }} minutos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
