@@ -110,28 +110,25 @@ class AppFixtures extends Fixture
             CREAR DATOS DE PRUEBA DE EQUIPOS ASIGNÁNDOLE A CADA EQUIPO UN DEPORTE
         */
         $faker = Factory::create();
-        $teams = TeamFactory::createMany(5, function() {
-            return [
-                'sport' => SportFactory::random()
-            ];
-        });
+        $teams = TeamFactory::createMany(5);
 
         foreach ($teams as $team) {
             /*
                 CREAR DATOS DE PRUEBA DE JUGADORES ASIGNÁNDOLES UN EQUIPO A CADA UNO HASTA UN MÁXIMO DE 10 POR EQUIPO 
                 CON UN NÚMERO DE JUGADOR QUE NO SE REPITE EN CADA EQUIPO
             */
-            $usedNumbers = []; 
+            $hasTeacher = false;
 
-            for ($i = 0; $i < 10; $i++) {
-                do {
-                    $number = $faker->numberBetween(1, 15);
-                } while (in_array($number, $usedNumbers)); 
+            for ($i = 0; $i < 11; $i++) {
+                $isTeacher = !$hasTeacher && $faker->boolean(20);
+                $hasTeacher = $hasTeacher || $isTeacher;
 
-                $usedNumbers[] = $number;
                 PersonFactory::createOne(
-                    ['team' => $team,
-                    'number' => $number]
+                    [
+                        'team' => $team,
+                        'isTeacher' => $isTeacher,
+                        'isPlayer' => !$isTeacher,
+                    ]
                 );
             }
         }

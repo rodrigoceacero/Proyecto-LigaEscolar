@@ -46,14 +46,12 @@ final class PersonFactory extends ModelFactory
      */
     protected function getDefaults(): array
     {
-        $isPlayer = self::faker()->boolean(80) ? 1 : 0;
 
         return [
             'firstName' => self::faker()->firstName(),
-            'isPlayer' => $isPlayer ? 1 : 0,
-            'isTeacher' => $isPlayer ? 0 : 1,
-            'lastName' => self::faker()->lastName() . ' ' . self::faker()->lastName(),
-            'number' => self::faker()->randomNumber(1,99),
+            'isPlayer' => self::faker()->boolean(80),
+            'isTeacher' => 0,
+            'lastName' => self::faker()->lastName() . ' ' . self::faker()->lastName()
         ];
     }
 

@@ -49,7 +49,8 @@ final class TeamFactory extends ModelFactory
         $teamName = self::faker()->company() . ' ' . self::faker()->companySuffix();
         return [
             'name' => $teamName,
-            'school' => 'Escuela de ' . $teamName 
+            'school' => 'Escuela de ' . $teamName,
+            'sport' => SportFactory::random()
         ];
     }
 
