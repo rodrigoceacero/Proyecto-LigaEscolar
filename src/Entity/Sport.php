@@ -21,12 +21,12 @@ class Sport
     #[ORM\Column(type: 'integer')]
     #[Assert\NotBlank(message: 'La duración del partido es obligatorio')]
     private ?int $duration;
+    #[ORM\Column(type: 'boolean')]
+    private bool $active = true;
     #[ORM\OneToMany(targetEntity: GameMatch::class, mappedBy: 'sport')]
     private Collection $matchs;
     #[ORM\OneToMany(targetEntity: Team::class, mappedBy: 'sport')]
     private Collection $teams;
-    #[ORM\Column(type: 'boolean')]
-    private bool $active = true;
 
     public function __construct()
     {
