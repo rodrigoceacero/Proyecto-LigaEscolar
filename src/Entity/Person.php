@@ -15,8 +15,6 @@ class Person
     private string $firstName;
     #[ORM\Column(type: 'string')]
     private string $lastName;
-    #[ORM\Column(type: 'integer')]
-    private int $number;
     #[ORM\Column(type: 'boolean')]
     private bool $isPlayer;
     #[ORM\Column(type: 'boolean')]
@@ -47,16 +45,6 @@ class Person
     public function setLastName(string $lastName): void
     {
         $this->lastName = $lastName;
-    }
-
-    public function getNumber(): int
-    {
-        return $this->number;
-    }
-
-    public function setNumber(int $number): void
-    {
-        $this->number = $number;
     }
 
     public function isPlayer(): bool
