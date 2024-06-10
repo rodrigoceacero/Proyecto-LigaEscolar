@@ -10,13 +10,58 @@
 {% block javascripts %}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('javascript/desplegable.js') }}"></script>
-    <script src="{{ asset('javascript/search.js') }}"></script>
-    <script src="{{ asset('javascript/delete.js') }}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const searchForm = document.getElementById('search-form');
+            const searchInput = document.getElementById('search');
+            const containerList = document.getElementById('listar');
+
+            searchForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const name = searchInput.value;
+                const inactive = searchForm.querySelector('input[name="inactive"]').value;
+
+                fetch(`${searchForm.action}?search=${encodeURIComponent(name)}&inactive=${inactive}`, {
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                    .then(response => {
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (!data.found) {
+                            Swal.fire({
+                                title: 'No hay deportes con ese nombre, inténtalo de nuevo',
+                                icon: 'info',
+                                confirmButtonText: 'OK',
+                                customClass: {
+                                    confirmButton: 'btn-sweet',
+                                    title: 'titulo-sweet'
+                                }
+                            });
+                        } else {
+                            containerList.innerHTML = data.content;
+                            searchInput.value = '';
+                            attachExpandListeners();
+                            attachDeleteListeners();
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            });
+
+            attachExpandListeners();
+            attachDeleteListeners();
+        });
+    </script>
     {% for message in app.session.flashBag.get('success') %}
         <script src="{{ asset('javascript/created.js') }}"></script>
     {% endfor %}
     {% for message in app.session.flashBag.get('updated') %}
-        <script src="{{ asset('javascript/created.js') }}"></script>
+        <script src="{{ asset('javascript/updated.js') }}"></script>
     {% endfor %}
 {% endblock %}
 

@@ -111,28 +111,4 @@ class SportController extends AbstractController
             'sport' => $sport
         ]);
     }
-
-    #[Route('/sport/delete/{id}', name: 'delete_sport', methods: ['POST'])]
-    public function delete(
-        Request $request,
-        Sport $sport,
-        SportRepository $sportRepository,
-    ): JsonResponse
-    {
-        if ($request->isMethod('POST') && $request->getContent()) {
-            $data = json_decode($request->getContent(), true);
-            if (isset($data['confirmar'])) {
-                try {
-                    $sport->setActive(false);
-                    $sportRepository->save();
-                    return new JsonResponse(['status' => 'success', 'message' => 'Deporte marcado como inactivo']);
-                } catch (\Exception $e) {
-                    return new JsonResponse(['status' => 'error', 'message' => 'No se ha podido marcar como inactivo el deporte'], 500);
-                }
-            }
-        }
-
-        return new JsonResponse(['status' => 'error', 'message' => 'Petición invalidad'], 400);
-    }
-
 }
