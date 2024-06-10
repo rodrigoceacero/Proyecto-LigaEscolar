@@ -55,15 +55,20 @@ body {
 
 .contenedor-search,
 .contenedor-oculto,
-.contenedor-agregar {
+.contenedor-agregar,
+.contenedor-search-players{
     display: flex;
     border-radius: 5px;
     margin-right: 1.2rem;
     align-items: center;
     height: 50px;
 }
+.contenedor-search-players{
+    margin-right: 4rem;
+}
 
-.contenedor-search form {
+.contenedor-search form,
+.contenedor-search-players form{
     display: flex;
     width: 100%;
     box-shadow: 0px 0px 5px 1px rgba(0,0,0,1);

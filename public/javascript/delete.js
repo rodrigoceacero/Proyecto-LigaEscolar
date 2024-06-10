@@ -1,13 +1,14 @@
-function attachDeleteListeners() {
+function attachDeleteListeners(urlDelete) {
     document.querySelectorAll('.btn-delete').forEach(function(button) {
         button.addEventListener('click', function(event) {
             event.preventDefault();
-            let sportId = this.getAttribute('data-id');
-            let sportName = this.getAttribute('data-name');
+            let fieldId = this.getAttribute('data-id');
+            let fieldName = this.getAttribute('data-name');
+            let deleteUrl = urlDelete + fieldId;
 
             Swal.fire({
                 title: '¿Estás seguro?',
-                text: `Vas a marcar "${sportName}" como inactivo.`,
+                text: `Vas a eliminar "${fieldName}" . No se podrá deshacer.`,
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
@@ -20,7 +21,7 @@ function attachDeleteListeners() {
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
-                    fetch(`/sport/delete/${sportId}`, {
+                    fetch(deleteUrl, {
                         method: 'POST',
                         headers: {
                             'X-Requested-With': 'XMLHttpRequest',
@@ -30,8 +31,8 @@ function attachDeleteListeners() {
                     }).then(response => {
                         if (response.ok) {
                             Swal.fire({
-                                title: 'Inactivo',
-                                text: 'Se ha marcado correctamente como inactivo',
+                                title: 'Eliminado',
+                                text: 'Se ha eliminado correctamente',
                                 icon: 'success',
                                 timer: 5000,
                                 timerProgressBar: true,
@@ -42,7 +43,7 @@ function attachDeleteListeners() {
                         } else {
                             Swal.fire(
                                 'Error',
-                                'No se ha podido marcar como inactivo',
+                                'No se ha podido eliminar',
                                 'error'
                             );
                         }
@@ -52,7 +53,3 @@ function attachDeleteListeners() {
         });
     });
 }
-
-document.addEventListener('DOMContentLoaded', function () {
-    attachDeleteListeners();
-});

@@ -1,47 +1,45 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener('DOMContentLoaded', function () {
     const searchForm = document.getElementById('search-form');
     const searchInput = document.getElementById('search');
-    const containerList = document.getElementById('listar');
 
-    searchForm.addEventListener('submit', function(event) {
-        event.preventDefault();
+    if (searchForm && searchInput) {
+        searchForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const query = searchInput.value;
+            fetchResults(query);
+        });
+    }
+});
 
-        const name = searchInput.value;
-        const inactive = searchForm.querySelector('input[name="inactive"]').value;
-        console.log('Search query:', name); // Log de depuración
+function fetchResults(query) {
+    const url = new URL(window.location.href);
+    url.searchParams.set('search', query);
 
-        fetch(`${searchForm.action}?search=${encodeURIComponent(name)}&inactive=${inactive}`, {
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest'
+    fetch(url, {
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (!data.found) {
+                Swal.fire({
+                    title: 'No se han encontrado datos, inténtalo de nuevo',
+                    icon: 'info',
+                    confirmButtonText: 'OK',
+                    customClass: {
+                        confirmButton: 'btn-sweet',
+                        title: 'titulo-sweet'
+                    }
+                });
+            } else {
+                const listContainer = document.getElementById('listar');
+                if (listContainer) {
+                    listContainer.innerHTML = data.content;
+                    const deleteUrlBase = listContainer.getAttribute('data-delete-url');
+                    attachExpandListeners();
+                    attachDeleteListeners(deleteUrlBase);
+                }
             }
         })
-            .then(response => {
-                return response.json();
-            })
-            .then(data => {
-                console.log('Response data:', data); // Log de depuración
-                if (!data.found) {
-                    Swal.fire({
-                        title: 'No hay equipos con ese nombre, inténtalo de nuevo',
-                        icon: 'info',
-                        confirmButtonText: 'OK',
-                        customClass: {
-                            confirmButton: 'btn-sweet',
-                            title: 'titulo-sweet'
-                        }
-                    });
-                } else {
-                    containerList.innerHTML = data.content;
-                    searchInput.value = '';
-                    attachExpandListeners();
-                    attachDeleteListeners();
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    });
-
-    attachExpandListeners();
-    attachDeleteListeners();
-});
+}

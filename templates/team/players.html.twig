@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Jugadores de {{ team.name }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/cardmain.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('javascript/desplegable.js') }}"></script>
+{% endblock %}
+
+{% block header %}
+    {% include 'navbar.html.twig' %}
+{% endblock %}
+
+{% block body %}
+    <div class="cabecera-crud">
+        <div>
+            <h2 class="h2-titulo">
+                Equipo {{ team.name }}
+            </h2>
+        </div>
+    </div>
+    <div id="listar">
+        {% for person in people %}
+            <div class="contenedor-principal">
+                <div class="contenedor-expandir">
+                    <div class="expandible">
+                        <span class="titulo"><h6>{{ person.firstName }} {{ person.lastName }}</h6></span>
+                        <div class="iconos">
+                            <span class="desplegar"><i class="ti ti-chevron-down a-botones"></i></span>
+                        </div>
+                    </div>
+                    <div class="contenedor-desplegable">
+                        <div class="contenedor-informacion-desplegable">
+                            <div class="informacion">
+                                <h3>Nombre</h3>
+                                <p>{{ person.firstName }}</p>
+                            </div>
+                            <div class="informacion">
+                                <h3>Apellidos</h3>
+                                <p>{{ person.lastName }}</p>
+                            </div>
+                            {% if person.isPlayer == 1 %}
+                                <div class="informacion">
+                                    <h3>Dorsal</h3>
+                                    <p>{{ person.number }}</p>
+                                </div>
+                            {% endif %}
+                            {% if person.isPlayer == 1 and person.isTeacher == 0 %}
+                                <div class="informacion">
+                                    <h3>Rol</h3>
+                                    <p>Jugador</p>
+                                </div>
+                            {% else %}
+                                <div class="informacion">
+                                    <h3>Rol</h3>
+                                    <p>Entrenador</p>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="contenedor-footer">
+        <div class="volver">
+            <a href="{{ path('people') }}" class="boton-volver"><i class="ti ti-arrow-left icono-agregar"></i> Volver</a>
+        </div>
+    </div>
+{% endblock %}
