@@ -100,7 +100,7 @@ class PersonController extends AbstractController
         ]);
     }
 
-    #[Route('/sport/delete/{id}', name: 'delete_person', methods: ['POST'])]
+    #[Route('/person/delete/{id}', name: 'delete_person', methods: ['POST'])]
     public function delete(
         Request $request,
         PersonRepository $personRepository,
