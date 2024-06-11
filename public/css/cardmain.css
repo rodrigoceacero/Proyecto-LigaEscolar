@@ -41,10 +41,11 @@ body {
 }
 
 .h2-titulo {
-    font-family: 'Jost-SemiBold', sans-serif;
+    font-family: 'Jost-Medium', sans-serif;
     color: #00001B;
-    font-size: 2.5rem;
+    font-size: 2rem;
     margin-left: 6rem;
+    text-shadow: 1px 2px 2px #b8b8b8;
 }
 
 .contenedor-derecha {
@@ -56,12 +57,13 @@ body {
 .contenedor-jugador-deporte{
     width: 10rem;
     color: #00001B;
-    font-family: Jost-Medium, sans-serif;
+    font-family: 'Jost-SemiBold700', sans-serif;
     text-align: center;
     margin-right: 4rem;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     border-radius: 8px;
     padding: 0.5rem;
+    text-shadow: 1px 2px 2px #b8b8b8;
 }
 
 .contenedor-search,
@@ -83,16 +85,16 @@ body {
 .contenedor-search-players form{
     display: flex;
     width: 100%;
-    box-shadow: 0px 0px 5px 1px rgba(0,0,0,1);
 }
 
 .input-buscar {
     flex-grow: 1;
     font-family: Jost-Light, sans-serif;
     font-size: 1rem;
-    border: 2px solid black;
+    border: 1px solid rgba(0, 0, 0, 0.20);
     border-right: none;
     background-color: white;
+    border-radius: 8px 0 0 8px;
     padding: 10px;
     height: 50px;
     outline: none;
@@ -107,11 +109,12 @@ body {
 }
 
 .boton-buscar{
-    border: 2px solid black;
     background-color: rgba(200, 20, 13, 0.7);
     text-align: center;
     color: #00001B;
     cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.20);
+    border-left: none;
     padding: 0;
     box-sizing: border-box;
     display: flex;
@@ -150,9 +153,9 @@ body {
     font-size: 1.5rem;
     text-decoration: none;
     margin-right: 3rem;
-    -webkit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,1);
-    -moz-box-shadow: 0px 0px 5px 1px rgba(0,0,0,1);
-    box-shadow: 0px 0px 5px 1px rgba(0,0,0,1);
+    -webkit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.5);
     padding: 0 10px;
     border-radius: 8px;
 }
@@ -165,7 +168,6 @@ body {
 }
 
 /*BOTONES DE ACCIONES*/
-
 .a-botones{
     display: flex;
     justify-content: center;
@@ -177,9 +179,9 @@ body {
     font-family: 'Jost-Regular', sans-serif;
     font-size: 1.7rem;
     color: black;
-    -webkit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,1);
-    -moz-box-shadow: 0px 0px 5px 1px rgba(0,0,0,1);
-    box-shadow: 0px 0px 5px 1px rgba(0,0,0,1);
+    -webkit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.5);
 }
 
 /*CONTENEDOR DESPLEGABLE*/
@@ -204,8 +206,17 @@ body {
     border-radius: 8px;
 }
 
+.contenedor-persona{
+    margin-top: 0.5rem;
+}
+
 .titulo {
-    flex-grow: 1;
+    height: 10px;
+}
+
+.p-rol{
+    opacity: 0.5;
+    font-family: 'Jost-Light', sans-serif;
 }
 
 .iconos {

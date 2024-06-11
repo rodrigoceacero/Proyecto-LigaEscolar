@@ -3,32 +3,22 @@
         <div class="contenedor-expandir">
             <div class="expandible">
                 {% if person.isPlayer == 1 and person.isTeacher == 0 %}
-                    <span class="titulo"><h6>{{ person.firstName }} {{ person.lastName }} - Jugador </h6></span>
+                <div class="contenedor-persona">
+                    <span class="titulo-card"><h2>{{ person.firstName }} {{ person.lastName }}</h2></span>
+                    <span class="p-rol"><p>Jugador</span>
+                </div>
                 {% else %}
-                    <span class="titulo"><h6>{{ person.firstName }} {{ person.lastName }} - Profesor</h6></span>
+                <div class="contenedor-persona">
+                    <span class="titulo-card"><h2>{{ person.firstName }} {{ person.lastName }}</h2></span>
+                    <span class="p-rol"><p>Profesor</span>
+                </div>
                 {% endif %}
                 <div class="iconos">
                     {% if is_granted('ROLE_DEVELOPER') or is_granted('ROLE_ADMIN') %}
                         <a href="{{ path('person_edit', {'id': person.id}) }}" class="boton"><i class="ti ti-edit a-botones"></i></a>
                         <a href="{{ path('delete_person', {'id': person.id}) }}" class="boton btn-delete" data-id="{{ person.id }}" data-name="{{ person.firstName }}"><i class="ti ti-trash a-botones"></i></a>
                     {% endif %}
-                    <span class="desplegar"><i class="ti ti-chevron-down a-botones"></i></span>
-                </div>
-            </div>
-            <div class="contenedor-desplegable">
-                <div class="contenedor-informacion-desplegable">
-                    <div class="informacion">
-                        <h3>Nombre</h3>
-                        <p>{{ person.firstName }}</p>
-                    </div>
-                    <div class="informacion">
-                        <h3>Apellidos</h3>
-                        <p>{{ person.lastName }}</p>
-                    </div>
-                    <div class="informacion">
-                        <h3>Equipo</h3>
-                        <p><a href="{{ path('team_players', {'id': person.teamId}) }}" class="ver-equipo"> Ver equipo</a></p>
-                    </div>
+                        <a href="{{ path('team_players', {'id': person.teamId}) }}" class="boton desplegar"><i class="ti ti-shirt a-botones"></i></a>
                 </div>
             </div>
         </div>
