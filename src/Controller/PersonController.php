@@ -49,7 +49,10 @@ class PersonController extends AbstractController
     {
         $team = $teamRepository->find($id);
         if (!$team) {
-            throw $this->createNotFoundException('El equipo no existe'); /*devolver swAL.FIRE*/
+            return $this->render('person/players.html.twig', [
+                'teamExist' => false,
+                'team' => null
+            ]);
         }
         $teamId = $team->getId();
 
@@ -58,6 +61,7 @@ class PersonController extends AbstractController
         return $this->render('person/players.html.twig', [
             'team' => $team,
             'people' => $players,
+            'teamExist' => true,
         ]);
     }
 

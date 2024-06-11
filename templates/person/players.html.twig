@@ -1,14 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Jugadores de {{ team.name }}{% endblock %}
+{% block title %}
+    {% if team is not null %}
+        Jugadores de {{ team.name }}
+    {% else %}
+        Equipo no encontrado
+    {% endif %}
+{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/cardmain.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
 {% endblock %}
 
 {% block javascripts %}
     <script src="{{ asset('javascript/desplegable.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 {% endblock %}
 
 {% block header %}
@@ -16,42 +25,56 @@
 {% endblock %}
 
 {% block body %}
-    <div class="cabecera-crud">
-        <div>
-            <h2 class="h2-titulo">
-                Equipo {{ team.name }}
-            </h2>
-        </div>
-        <div class="contenedor-derecha">
-            <div class="contenedor-jugador-deporte">
-                <h2>{{ team.sport.name }}</h2>
+    {% if teamExist %}
+        <div class="cabecera-crud">
+            <div>
+                <h2 class="h2-titulo">
+                    Equipo {{ team.name }}
+                </h2>
+            </div>
+            <div class="contenedor-derecha">
+                <div class="contenedor-jugador-deporte">
+                    <h2>{{ team.sport.name }}</h2>
+                </div>
             </div>
         </div>
-    </div>
-    <div id="listar">
-        {% for person in people %}
-    <div class="contenedor-principal">
-        <div class="contenedor-expandir">
-            <div class="expandible">
-                {% if person.isPlayer == 1 and person.isTeacher == 0 %}
-                <div class="contenedor-persona">
-                    <span class="titulo-card"><h2>{{ person.firstName }} {{ person.lastName }}</h2></span>
-                    <span class="p-rol"><p>Jugador</span>
+        <div id="listar">
+            {% for person in people %}
+                <div class="contenedor-principal">
+                    <div class="contenedor-expandir">
+                        <div class="expandible">
+                            <div class="contenedor-persona">
+                                <span class="titulo-card"><h2>{{ person.firstName }} {{ person.lastName }}</h2></span>
+                                <span class="p-rol"><p>{{ person.isPlayer ? 'Jugador' : 'Profesor' }}</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                {% else %}
-                <div class="contenedor-persona">
-                    <span class="titulo-card"><h2>{{ person.firstName }} {{ person.lastName }}</h2></span>
-                    <span class="p-rol"><p>Profesor</span>
-                </div>
-                {% endif %}
-            </div>
+            {% endfor %}
         </div>
-    </div>
-{% endfor %}
-    </div>
+    {% else %}
+        <script>
+            document.addEventListener('DOMContentLoaded', function (){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'No se ha encontrado el equipo',
+                    confirmButtonText: 'Aceptar',
+                    timer: 3000, // 3 seconds
+                    timerProgressBar: true
+                }).then((result) => {
+                    if (result.dismiss === Swal.DismissReason.timer || result.isConfirmed) {
+                        window.location.href = '{{ path("people") }}';
+                    }
+                });
+            })
+        </script>
+    {% endif %}
+    {% if team %}
     <div class="contenedor-footer">
         <div class="volver">
             <a href="{{ path('people') }}" class="boton-volver"><i class="ti ti-arrow-left icono-agregar"></i> Volver</a>
         </div>
     </div>
+    {% endif %}
 {% endblock %}
