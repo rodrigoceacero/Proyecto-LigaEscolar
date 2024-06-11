@@ -42,6 +42,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
+    margin-top: 1.6rem;
     margin-left: 6rem;
     margin-right: 6rem;
 }
@@ -53,21 +54,10 @@ body {
     text-shadow: 1px 2px 2px #b8b8b8;
 }
 
-.volver{
+.contenedor-footer-form {
     display: flex;
     align-items: center;
-    height: 50px;
-}
-
-.boton-volver {
-    border-radius: 8px;
-    background-color: deepskyblue;
-    text-align: center;
-    color: white;
-    margin: 8rem 0 0 1rem;
-    font-family: 'Jost-Light', sans-serif;
-    font-size: 1.5rem;
-    text-decoration: none;
+    margin-left: 6rem;
 }
 
 .icono-cancelar {
@@ -82,9 +72,7 @@ body {
     background-color: #992a25;
     padding: 2rem;
     border-radius: 8px;
-    -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
-    box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+
 }
 
 .form-label {
@@ -228,18 +216,16 @@ body {
 }
 
 .btn-guardar-form {
-    padding: 0.7rem 2rem;
+    padding: 0.5rem 0.8rem;
     border-radius: 8px;
-    margin-top: 2.5rem;
+    margin: 5rem 0 0 1rem;
     background-color: blue;
     border: none;
     color: white;
     font-family: 'Jost-Regular', sans-serif;
     font-size: 1.5rem;
     cursor: pointer;
-    -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
-    box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
 }
 
 .btn-guardar-form:hover {
