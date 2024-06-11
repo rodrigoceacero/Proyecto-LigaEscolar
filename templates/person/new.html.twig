@@ -91,11 +91,13 @@
                     {{ form_widget(form.isTeacher) }}
                 </div>
             </div>
-            <button type="submit" class="btn-guardar-form">Guardar <i class="ti ti-device-floppy"></i></button>
-            {{ form_end(form) }}
         </div>
-        <div class="volver">
-            <a href="{{ path('people') }}" class="boton-volver"><i class="ti ti-arrow-left icono-agregar"></i> Volver</a>
+        <div>
+            <div class="contenedor-footer-form">
+                <button type="submit" class="btn-guardar-form">Guardar <i class="ti ti-device-floppy"></i></button>
+                {{ form_end(form) }}
+                <a href="{{ path('people') }}" class="boton-volver-form"><i class="ti ti-arrow-left icono-agregar"></i> Volver</a>
+            </div>
         </div>
     </div>
 {% endblock %}
