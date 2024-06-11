@@ -34,7 +34,7 @@ class PersonType extends AbstractType
                 'empty_data' => '',
                 'attr' => [
                     'class' => 'form-input',
-                    'placeholder' => 'Apellidos.',
+                    'placeholder' => 'Apellidos',
                 ],
             ])
             ->add('team', EntityType::class, [
