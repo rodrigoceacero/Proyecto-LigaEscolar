@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'person')]
@@ -12,15 +14,27 @@ class Person
     #[ORM\Column(type: 'integer')]
     private int $id;
     #[ORM\Column(type: 'string')]
+    #[Assert\NotBlank(message: 'El nombre es obligatorio')]
     private string $firstName;
     #[ORM\Column(type: 'string')]
+    #[Assert\NotBlank(message: 'Los apellidos son obligatorios')]
     private string $lastName;
     #[ORM\Column(type: 'boolean')]
     private bool $isPlayer;
     #[ORM\Column(type: 'boolean')]
     private bool $isTeacher;
     #[ORM\ManyToOne( inversedBy: 'players')]
+    #[Assert\NotBlank(message: 'El equipo es obligatorio')]
     private ?Team $team = null;
+    #[Assert\Callback]
+    public function validate(ExecutionContextInterface $context): void
+    {
+        if (!$this->isPlayer && !$this->isTeacher) {
+            $context->buildViolation('Debes seleccionar al menos una opción.')
+                ->atPath('isPlayer')
+                ->addViolation();
+        }
+    }
 
     public function getId(): int
     {

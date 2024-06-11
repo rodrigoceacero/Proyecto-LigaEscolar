@@ -22,13 +22,23 @@
                 Equipo {{ team.name }}
             </h2>
         </div>
+        <div class="contenedor-derecha">
+            <div class="contenedor-jugador-deporte">
+                <h2>{{ team.sport.name }}</h2>
+            </div>
+
+        </div>
     </div>
     <div id="listar">
         {% for person in people %}
             <div class="contenedor-principal">
                 <div class="contenedor-expandir">
                     <div class="expandible">
-                        <span class="titulo"><h6>{{ person.firstName }} {{ person.lastName }}</h6></span>
+                        {% if person.isPlayer == 1 and person.isTeacher == 0 %}
+                            <span class="titulo"><h6>{{ person.firstName }} {{ person.lastName }} - Jugador </h6></span>
+                        {% else %}
+                            <span class="titulo"><h6>{{ person.firstName }} {{ person.lastName }} - Profesor</h6></span>
+                        {% endif %}
                         <div class="iconos">
                             <span class="desplegar"><i class="ti ti-chevron-down a-botones"></i></span>
                         </div>
@@ -43,23 +53,6 @@
                                 <h3>Apellidos</h3>
                                 <p>{{ person.lastName }}</p>
                             </div>
-                            {% if person.isPlayer == 1 %}
-                                <div class="informacion">
-                                    <h3>Dorsal</h3>
-                                    <p>{{ person.number }}</p>
-                                </div>
-                            {% endif %}
-                            {% if person.isPlayer == 1 and person.isTeacher == 0 %}
-                                <div class="informacion">
-                                    <h3>Rol</h3>
-                                    <p>Jugador</p>
-                                </div>
-                            {% else %}
-                                <div class="informacion">
-                                    <h3>Rol</h3>
-                                    <p>Entrenador</p>
-                                </div>
-                            {% endif %}
                         </div>
                     </div>
                 </div>

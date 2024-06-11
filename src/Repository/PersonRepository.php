@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Person;
+use App\Entity\Team;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -25,21 +26,35 @@ class PersonRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-
-    public function findByTeamAndName(int $teamId, string $name)
+    public function findPersonByTeam(int $teamId)
     {
         return $this->createQueryBuilder('p')
-            ->select('p.id, p.firstName, p.lastName, p.isPlayer, p.isTeacher, team.id as teamId, team.name as teamName')
-            ->join('p.team', 'team')
-            ->where('p.team = :teamId')
-            ->andWhere('p.firstName LIKE :name OR p.lastName LIKE :name')
+            ->select('p.isPlayer, p.lastName, p.firstName, p.isPlayer, p.isTeacher, t.name')
+            ->join('p.team', 't')
+            ->join('t.sport', 's')
+            ->where('t.id = :teamId')
             ->setParameter('teamId', $teamId)
-            ->setParameter('name', $name)
             ->orderBy('p.firstName', 'ASC')
             ->addOrderBy('p.lastName', 'ASC')
             ->getQuery()
             ->getResult();
     }
+
+    public function hayProfesorEnEquipo(Team $team): bool
+    {
+        $count = $this->createQueryBuilder('p')
+            ->select('count(p.id)')
+            ->join('p.team', 't')
+            ->where('t = :team')
+            ->andWhere('p.isTeacher = true')
+            ->setParameter('team', $team)
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        return (int)$count > 0;
+    }
+
+
     public function add(Person $person)
     {
         $this->getEntityManager()->persist($person);

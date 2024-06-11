@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/cardmain.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const isPlayerCheckbox = document.getElementById('person_isPlayer');
+            const isTeacherCheckbox = document.getElementById('person_isTeacher');
+
+            function toggleCheckboxes() {
+                if (isPlayerCheckbox.checked) {
+                    isTeacherCheckbox.disabled = true;
+                } else {
+                    isTeacherCheckbox.disabled = false;
+                }
+
+                if (isTeacherCheckbox.checked) {
+                    isPlayerCheckbox.disabled = true;
+                } else {
+                    isPlayerCheckbox.disabled = false;
+                }
+            }
+
+            isPlayerCheckbox.addEventListener('change', toggleCheckboxes);
+            isTeacherCheckbox.addEventListener('change', toggleCheckboxes);
+
+            toggleCheckboxes();
+        });
+    </script>
+{% endblock %}
+
+{% block header %}
+    {% include 'navbar.html.twig' %}
+{% endblock %}
+
+{% block body %}
+        {% for message in app.flashes('error') %}
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: '{{ message }}'
+                });
+            </script>
+        {% endfor %}
+    <div class="contenedor">
+        <div class="contenedor-cabecera">
+            <div>
+                <h2 class="titulo-form">
+                    {{ titleForm }}
+                </h2>
+            </div>
+        </div>
+        <div class="contenedor-form">
+            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+            <div class="error">{{ form_errors(form) }}</div>
+            <div>
+                <div class="error">{{ form_errors(form.firstName) }}</div>
+                {{ form_label(form.firstName) }}
+                {{ form_widget(form.firstName) }}
+            </div>
+            <div>
+                <div class="error">{{ form_errors(form.lastName) }}</div>
+                {{ form_label(form.lastName) }}
+                {{ form_widget(form.lastName) }}
+            </div>
+            <div>
+                <div class="error">{{ form_errors(form.team) }}</div>
+                {{ form_label(form.team) }}
+                {{ form_widget(form.team) }}
+            </div>
+            <div class="error error-checkbox">{{ form_errors(form.isPlayer) }}</div>
+            <div class="checkbox-container">
+                <div class="checkbox-item">
+                    {{ form_label(form.isPlayer) }}
+                    {{ form_widget(form.isPlayer) }}
+                </div>
+                <div class="checkbox-item">
+                    {{ form_label(form.isTeacher) }}
+                    {{ form_widget(form.isTeacher) }}
+                </div>
+            </div>
+            <button type="submit" class="btn-guardar-form">Guardar <i class="ti ti-device-floppy"></i></button>
+            {{ form_end(form) }}
+        </div>
+        <div class="volver">
+            <a href="{{ path('people') }}" class="boton-volver"><i class="ti ti-arrow-left icono-agregar"></i> Volver</a>
+        </div>
+    </div>
+{% endblock %}

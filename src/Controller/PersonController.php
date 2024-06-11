@@ -41,20 +41,26 @@ class PersonController extends AbstractController
     }
 
     #[Route('/person/team/{id}', name: 'team_players')]
-    public function teamPlayers(int $id, TeamRepository $teamRepository): Response
+    public function teamPlayers(
+        int $id,
+        PersonRepository $personRepository,
+        TeamRepository $teamRepository
+    ): Response
     {
         $team = $teamRepository->find($id);
         if (!$team) {
-            throw $this->createNotFoundException('El equipo no existe');
+            throw $this->createNotFoundException('El equipo no existe'); /*devolver swAL.FIRE*/
         }
+        $teamId = $team->getId();
 
-        $players = $team->getPlayers(); /*modificar consulta*/
+        $players = $personRepository->findPersonByTeam($teamId);
 
-        return $this->render('team/players.html.twig', [
+        return $this->render('person/players.html.twig', [
             'team' => $team,
             'people' => $players,
         ]);
     }
+
 
     #[Route('/person/new', name: 'new_person')]
     public function new(
@@ -68,6 +74,17 @@ class PersonController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $team = $person->getTeam();
+            $hasTeacher = $personRepository->hayProfesorEnEquipo($team);
+
+            if ($person->isTeacher() && $hasTeacher) {
+                $this->addFlash('error', 'El equipo ya tiene un profesor');
+                return $this->render('person/new.html.twig', [
+                    'form' => $form->createView(),
+                    'title' => 'Crear persona',
+                    'titleForm' => 'Añadir datos'
+                ]);
+            }
             $personRepository->save();
             $this->addFlash('success', 'Persona creada correctamente');
             return $this->redirectToRoute('people');
@@ -75,6 +92,8 @@ class PersonController extends AbstractController
 
         return $this->render('person/new.html.twig', [
             'form' => $form->createView(),
+            'title' => 'Crear persona',
+            'titleForm' => 'Añadir datos'
         ]);
     }
 
@@ -85,18 +104,32 @@ class PersonController extends AbstractController
         Person $person): Response
     {
         $form = $this->createForm(PersonType::class, $person);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $personRepository->save();
+            $team = $person->getTeam();
+            $hasTeacher = $personRepository->hayProfesorEnEquipo($team);
+
+            if ($person->isTeacher() && $hasTeacher) {
+                $this->addFlash('error', 'El equipo ya tiene un profesor');
+                return $this->render('person/new.html.twig', [
+                    'form' => $form->createView(),
+                    'person' => $person,
+                    'title' => 'Editar persona',
+                    'titleForm' => 'Actualizar datos'
+                ]);
+            }
+
+            $personRepository->save($person);
             $this->addFlash('updated', 'Persona actualizada correctamente');
             return $this->redirectToRoute('people');
         }
 
-        return $this->render('person/edit.html.twig', [
+        return $this->render('person/new.html.twig', [
             'form' => $form->createView(),
-            'person' => $person
+            'person' => $person,
+            'title' => 'Editar persona',
+            'titleForm' => 'Actualizar datos'
         ]);
     }
 
@@ -114,7 +147,7 @@ class PersonController extends AbstractController
                     $personRepository->remove($person, true);
                     return new JsonResponse(['status' => 'success', 'message' => 'Se ha borrado la persona correctamente']);
                 } catch (\Exception $e) {
-                    return new JsonResponse(['status' => 'error', 'message' => 'No se ha podido marcar borrar'], 500);
+                    return new JsonResponse(['status' => 'error', 'message' => 'No se ha podido borrar'], 500);
                 }
             }
         }
