@@ -35,21 +35,20 @@ class SportRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-
-    public function findByActive(){
+    public function findOrderByName(){
         return $this->createQueryBuilder('s')
-            ->select('s.id, s.name, s.duration')
-            ->where('s.active = true')
+            ->select('s.id, s.name, s.duration, s.active')
             ->orderBy('s.name')
             ->getQuery()
             ->getResult();
     }
 
-    public function findByinactive(){
+    public function findByName(string $name){
         return $this->createQueryBuilder('s')
-            ->select('s.id, s.name, s.duration')
-            ->where('s.active = false')
+            ->select('s.id, s.name, s.duration, s.active')
+            ->where('s.name LIKE :name')
             ->orderBy('s.name')
+            ->setParameter('name', $name)
             ->getQuery()
             ->getResult();
     }

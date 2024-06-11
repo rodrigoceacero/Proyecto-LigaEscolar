@@ -20,9 +20,8 @@
                 event.preventDefault();
 
                 const name = searchInput.value;
-                const inactive = searchForm.querySelector('input[name="inactive"]').value;
 
-                fetch(`${searchForm.action}?search=${encodeURIComponent(name)}&inactive=${inactive}`, {
+                fetch(`${searchForm.action}?search=${encodeURIComponent(name)}`, {
                     headers: {
                         'X-Requested-With': 'XMLHttpRequest'
                     }
@@ -100,10 +99,5 @@
         <div class="volver">
             <a href="{{ path('main_app') }}" class="boton-volver"><i class="ti ti-arrow-left icono-agregar"></i> Volver</a>
         </div>
-        {% if is_granted('ROLE_DEVELOPER') or is_granted('ROLE_ADMIN') %}
-            <div class="contenedor-oculto">
-                <a href="{{ path('sports_inactive') }}" class="boton-oculto">Ver deportes ocultos</a>
-            </div>
-        {% endif %}
     </div>
 {% endblock %}

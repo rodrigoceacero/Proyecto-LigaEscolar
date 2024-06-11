@@ -251,46 +251,42 @@ body {
 .warning i {
     margin-right: 5px;
 }
-
-
 .contenedor-desplegable {
     max-height: 0;
     overflow: hidden;
+    transition: max-height 0.3s ease-out;
 }
 
 .contenedor-desplegable.expanded {
     background-color: #992a25;
-    max-height: 500px;
-    padding: 15px;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
+    max-height: 120px;
 }
 
-.contenedor-informacion-desplegable{
+.contenedor-informacion-desplegable {
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
 }
 
 .informacion {
-    border-radius: 8px;
     background-color: rgb(97, 0, 0);
-    flex: 1 1 calc(25% - 10px);
+    flex: 1 1 calc(50% - 10px);
 }
 
 .informacion h3 {
-    font-family: 'Jost-Medium',sans-serif;
-    font-size: 1.5rem;
+    font-family: 'Jost-Medium', sans-serif;
+    font-size: 1.3rem;
     margin-left: 10px;
     color: white;
 }
 
 .informacion p {
     font-family: 'Jost-SemiBold', sans-serif;
-    font-size: 1.2rem;
+    font-size: 1rem;
     margin-left: 10px;
     color: white;
 }
+
 
 .contenedor-warning {
     font-family: Jost-ExtraLight, sans-serif;

@@ -2,7 +2,9 @@
     <div class="contenedor-principal">
         <div class="contenedor-expandir">
             <div class="expandible">
-                <span class="titulo"><h6>{{ sport.name }}</h6></span>
+                <div class="contenedor-persona">
+                    <span class="titulo-card"><h2>{{ sport.name }}</h2></span>
+                </div>
                 <div class="iconos">
                     {% if is_granted('ROLE_DEVELOPER') or is_granted('ROLE_ADMIN') %}
                         <a href="{{ path('sport_edit', {'id': sport.id}) }}" class="boton"><i class="ti ti-edit a-botones"></i></a>
@@ -13,12 +15,20 @@
             <div class="contenedor-desplegable">
                 <div class="contenedor-informacion-desplegable">
                     <div class="informacion">
-                        <h3>Nombre</h3>
-                        <p>{{ sport.name }}</p>
+                        <h3>Estado</h3>
+                        {% if sport.active == 1 %}
+                            <p>Activo</p>
+                        {% else %}
+                            <p>Inactivo</p>
+                        {% endif %}
                     </div>
                     <div class="informacion">
                         <h3>Duración de un partido</h3>
-                        <p>{{ sport.duration }} minutos</p>
+                        {% if sport.duration == 1 %}
+                            <p>{{ sport.duration }} minuto</p>
+                        {% else %}
+                            <p>{{ sport.duration }} minutos</p>
+                        {% endif %}
                     </div>
                 </div>
             </div>

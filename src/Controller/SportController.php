@@ -19,19 +19,9 @@ class SportController extends AbstractController
         SportRepository $sportRepository
     ): Response
     {
-        $sports = $sportRepository->findByActive();
-        return $this->render('sport/list.html.twig', [
-            'sports' => $sports,
-        ]);
-    }
+        $sports = $sportRepository->findOrderByName();
 
-    #[Route('/sport/inactive', name: 'sports_inactive')]
-    final public function inactive(
-        SportRepository $sportRepository
-    ): Response
-    {
-        $sports = $sportRepository->findByinactive();
-        return $this->render('sport/listinactive.html.twig', [
+        return $this->render('sport/list.html.twig', [
             'sports' => $sports,
         ]);
     }
@@ -43,16 +33,11 @@ class SportController extends AbstractController
         $inactive = $request->query->get('inactive', 'false') === 'true';
         $search = '%' . htmlspecialchars($search, ENT_QUOTES, 'UTF-8') . '%';
 
-        if ($inactive) {
-            $sports = $sportRepository->findByNameInactive($search);
-        } else {
-            $sports = $sportRepository->findByNameActive($search);
-        }
+        $sports = $sportRepository->findByName($search);
 
         if ($request->isXmlHttpRequest()) {
             $content = $this->renderView('sport/listAjax.html.twig', [
                 'sports' => $sports,
-                'inactive' => $inactive,
             ]);
             $found = count($sports) > 0;
 
@@ -87,6 +72,8 @@ class SportController extends AbstractController
 
         return $this->render('sport/new.html.twig', [
             'form' => $form->createView(),
+            'title' => 'Crear deporte',
+            'titleForm' => 'Añadir datos'
         ]);
     }
 
@@ -106,9 +93,11 @@ class SportController extends AbstractController
             return $this->redirectToRoute('sports');
         }
 
-        return $this->render('sport/edit.html.twig', [
+        return $this->render('sport/new.html.twig', [
             'form' => $form->createView(),
-            'sport' => $sport
+            'sport' => $sport,
+            'title' => 'Editar deporte',
+            'titleForm' => 'Actualizar datos'
         ]);
     }
 }

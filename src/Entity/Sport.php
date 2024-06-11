@@ -19,7 +19,7 @@ class Sport
     #[Assert\NotBlank(message: 'El nombre es obligatorio')]
     private ?string $name;
     #[ORM\Column(type: 'integer')]
-    #[Assert\NotBlank(message: 'La duración del partido es obligatorio')]
+    #[Assert\NotBlank(message: 'La duración del partido es obligatoria')]
     private ?int $duration;
     #[ORM\Column(type: 'boolean')]
     private bool $active = true;

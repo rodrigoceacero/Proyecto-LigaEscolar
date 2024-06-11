@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Crear deporte
+    {{ title }}
 {% endblock %}
 
 {% block stylesheets %}
@@ -15,22 +15,58 @@
 {% endblock %}
 
 {% block body %}
+    {% for message in app.flashes('error') %}
+        <script>
+            document.addEventListener('DOMContentLoaded', function (){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: {{ message }},
+                    confirmButtonText: 'Aceptar',
+                    timer: 3000,
+                    timerProgressBar: true
+                }).then((result) => {
+                    if (result.dismiss === Swal.DismissReason.timer || result.isConfirmed) {
+                        window.location.href = '{{ path("sports") }}';
+                    }
+                });
+            })
+        </script>
+    {% endfor %}
     <div class="contenedor">
         <div class="contenedor-cabecera">
             <div>
                 <h2 class="titulo-form">
-                    Añadir datos
+                    {{ titleForm }}
                 </h2>
             </div>
         </div>
         <div class="contenedor-form">
-            {{ form_start(form) }}
-            {{ form_widget(form) }}
-            <button type="submit" class="btn-guardar-form">Guardar <i class="ti ti-device-floppy"></i></button>
-            {{ form_end(form) }}
+            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+            <div class="error">{{ form_errors(form) }}</div>
+            <div>
+                <div class="error">{{ form_errors(form.name) }}</div>
+                {{ form_label(form.name) }}
+                {{ form_widget(form.name) }}
+            </div>
+            <div>
+                <div class="error">{{ form_errors(form.duration) }}</div>
+                {{ form_label(form.duration) }}
+                {{ form_widget(form.duration) }}
+            </div>
+            <div class="checkbox-container">
+                <div class="checkbox-item">
+                    {{ form_label(form.active) }}
+                    {{ form_widget(form.active) }}
+                </div>
+            </div>
         </div>
-        <div class="volver">
-            <a href="{{ path('sports') }}" class="boton-volver"><i class="ti ti-arrow-left icono-agregar"></i> Volver</a>
+        <div>
+            <div class="contenedor-footer-form">
+                <button type="submit" class="btn-guardar-form">Guardar <i class="ti ti-device-floppy"></i></button>
+                {{ form_end(form) }}
+                <a href="{{ path('sports') }}" class="boton-volver-form"><i class="ti ti-arrow-left icono-agregar"></i> Volver</a>
+            </div>
         </div>
     </div>
 {% endblock %}
