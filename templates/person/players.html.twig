@@ -17,7 +17,6 @@
 {% block javascripts %}
     <script src="{{ asset('javascript/desplegable.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
 {% endblock %}
 
 {% block header %}
@@ -39,7 +38,7 @@
             </div>
         </div>
         <div id="listar">
-            {% for person in people %}
+            {% for person in pagination %}
                 <div class="contenedor-principal">
                     <div class="contenedor-expandir">
                         <div class="expandible">
@@ -67,14 +66,18 @@
                         window.location.href = '{{ path("people") }}';
                     }
                 });
-            })
+            });
         </script>
     {% endif %}
-    {% if team %}
+    
     <div class="contenedor-footer">
+    {% if team %}
         <div class="volver">
             <a href="{{ path('people') }}" class="boton-volver"><i class="ti ti-arrow-left icono-agregar"></i> Volver</a>
         </div>
-    </div>
     {% endif %}
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    </div>
 {% endblock %}

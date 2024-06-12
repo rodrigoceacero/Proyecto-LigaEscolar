@@ -14,6 +14,18 @@ class PersonRepository extends ServiceEntityRepository
         parent::__construct($registry, Person::class);
     }
 
+    public function findByNamePaginate(string $name)
+    {
+        return $this->createQueryBuilder('p')
+        ->select('p.id, p.firstName, p.lastName, p.isPlayer, p.isTeacher, team.id as teamId, team.name as teamName')
+        ->join('p.team', 'team')
+        ->where('p.firstName LIKE :name OR p.lastName LIKE :name')
+        ->setParameter('name', $name)
+        ->orderBy('p.firstName', 'ASC')
+        ->addOrderBy('p.lastName', 'ASC')
+        ->getQuery();
+    }
+
     public function findByName(string $name)
     {
         return $this->createQueryBuilder('p')
@@ -26,6 +38,7 @@ class PersonRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    
     public function findPersonByTeam(int $teamId)
     {
         return $this->createQueryBuilder('p')
@@ -36,8 +49,7 @@ class PersonRepository extends ServiceEntityRepository
             ->setParameter('teamId', $teamId)
             ->orderBy('p.firstName', 'ASC')
             ->addOrderBy('p.lastName', 'ASC')
-            ->getQuery()
-            ->getResult();
+            ->getQuery();
     }
 
     public function hayProfesorEnEquipo(Team $team): bool

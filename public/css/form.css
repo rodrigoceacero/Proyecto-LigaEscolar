@@ -49,9 +49,10 @@ body {
 }
 
 .titulo-form {
-    font-family: 'Jost-Medium', sans-serif;
+    font-family: 'Jost-ExtraLight', sans-serif;
     color: #00001B;
     font-size: 2rem;
+    font-weight: bold;
     text-shadow: 1px 2px 2px #b8b8b8;
 }
 
@@ -62,7 +63,6 @@ body {
 
 .contenedor-form {
     color: white;
-    font-family: 'Jost-Medium', sans-serif;
     margin: 0.5rem 7rem;
     background-color: #992a25;
     padding: 2rem;
@@ -73,6 +73,8 @@ body {
     display: block;
     margin-bottom: 0.5rem;
     font-size: 1.2rem;
+    font-family: 'Jost-ExtraLight', sans-serif;
+    font-weight: bold;
     color: #ffffff;
 }
 
@@ -85,9 +87,8 @@ body {
     border: 1px solid #ffffff;
     border-radius: 8px;
     font-size: 1rem;
-    font-family: 'Jost-Regular', sans-serif;
-    -webkit-box-shadow: 2px 2px 21px -6px rgba(0,0,0,0.75);
-    -moz-box-shadow: 2px 2px 21px -6px rgba(0,0,0,0.75);
+    font-family: 'Jost-ExtraLight', sans-serif;
+    font-weight: bold;
     box-shadow: 2px 2px 21px -6px rgba(0,0,0,0.75);
 }
 
@@ -119,7 +120,8 @@ body {
     margin-bottom: 1.5rem;
     border: 1px solid #ffffff;
     font-size: 1rem;
-    font-family: 'Jost-Regular', sans-serif;
+    font-family: 'Jost-ExtraLight', sans-serif;
+    font-weight: bold;
     -webkit-box-shadow: 2px 2px 21px -6px rgba(0,0,0,0.75);
     -moz-box-shadow: 2px 2px 21px -6px rgba(0,0,0,0.75);
     box-shadow: 2px 2px 21px -6px rgba(0,0,0,0.75);
@@ -168,8 +170,10 @@ body {
 }
 
 .error {
-    color: yellow;
+    color: #D4C216;
     font-weight: bold;
+    font-family: 'Jost-SemiBold', sans-serif;
+    margin-bottom: 1.5rem;
     font-size: 1.2rem;
 }
 
@@ -214,7 +218,7 @@ body {
 
 .btn-guardar-form {
     border-radius: 8px;
-    background-color: blue;
+    background-color: rgba(200, 20, 13, 0.7);
     text-align: center;
     color: white;
     font-family: 'Jost-Light', sans-serif;
@@ -230,6 +234,7 @@ body {
 }
 
 .btn-guardar-form:hover {
+    background-color: #992a25;
     transform: scale(1.03);
     transition-property: all;
     transition-duration: 0.2s;

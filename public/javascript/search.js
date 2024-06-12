@@ -1,28 +1,20 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
     const searchForm = document.getElementById('search-form');
-    const searchInput = document.getElementById('search');
+    const personList = document.getElementById('listar');
 
-    if (searchForm && searchInput) {
-        searchForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-            const query = searchInput.value;
-            fetchResults(query);
-        });
-    }
-});
+    searchForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData(searchForm);
+        const params = new URLSearchParams(formData).toString();
 
-function fetchResults(query) {
-    const url = new URL(window.location.href);
-    url.searchParams.set('search', query);
-
-    fetch(url, {
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest'
-        }
-    })
+        fetch(`${searchForm.action}?${params}`, {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
         .then(response => response.json())
         .then(data => {
-            if (!data.found) {
+            if (!data.found){
                 Swal.fire({
                     title: 'No se han encontrado datos, inténtalo de nuevo',
                     icon: 'info',
@@ -32,14 +24,10 @@ function fetchResults(query) {
                         title: 'titulo-sweet'
                     }
                 });
-            } else {
-                const listContainer = document.getElementById('listar');
-                if (listContainer) {
-                    listContainer.innerHTML = data.content;
-                    const deleteUrlBase = listContainer.getAttribute('data-delete-url');
-                    attachExpandListeners();
-                    attachDeleteListeners(deleteUrlBase);
-                }
-            }
+            }else{
+                personList.innerHTML = data.content;          
+            }                
         })
-}
+        .catch(error => console.error('Error:', error));
+    });
+});

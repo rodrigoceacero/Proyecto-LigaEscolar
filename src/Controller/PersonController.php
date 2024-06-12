@@ -11,23 +11,31 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 class PersonController extends AbstractController
 {
     #[Route('/person', name: 'people')]
     public function index(
         Request $request,
-        PersonRepository $personRepository
+        PersonRepository $personRepository,
+        PaginatorInterface $paginator
     ): Response {
         $search = $request->query->get('search', '');
         $search = '%' . htmlspecialchars($search, ENT_QUOTES, 'UTF-8') . '%';
-        $people = $personRepository->findByName($search);
+        $query = $personRepository->findByNamePaginate($search);
+
+        $pagination = $paginator->paginate(
+            $query, 
+            $request->query->getInt('page', 1),
+            10
+        );
 
         if ($request->isXmlHttpRequest()) {
             $content = $this->renderView('person/listAjax.html.twig', [
-                'people' => $people
+                'pagination' => $pagination
             ]);
-            $found = count($people) > 0;
+            $found = count($pagination) > 0;
 
             return $this->json([
                 'content' => $content,
@@ -36,18 +44,21 @@ class PersonController extends AbstractController
         }
 
         return $this->render('person/list.html.twig', [
-            'people' => $people,
+            'pagination' => $pagination
         ]);
     }
 
     #[Route('/person/team/{id}', name: 'team_players')]
     public function teamPlayers(
         int $id,
+        Request $request,
         PersonRepository $personRepository,
-        TeamRepository $teamRepository
+        TeamRepository $teamRepository,
+        PaginatorInterface $paginator
     ): Response
     {
         $team = $teamRepository->find($id);
+    
         if (!$team) {
             return $this->render('person/players.html.twig', [
                 'teamExist' => false,
@@ -55,22 +66,28 @@ class PersonController extends AbstractController
             ]);
         }
         $teamId = $team->getId();
-
-        $players = $personRepository->findPersonByTeam($teamId);
-
+    
+        $query = $personRepository->findPersonByTeam($teamId);
+    
+        $pagination = $paginator->paginate(
+            $query, 
+            $request->query->getInt('page', 1),
+            10
+        );
+    
         return $this->render('person/players.html.twig', [
             'team' => $team,
-            'people' => $players,
+            'pagination' => $pagination,
             'teamExist' => true,
         ]);
     }
-
 
     #[Route('/person/new', name: 'new_person')]
     public function new(
         Request $request,
         PersonRepository $personRepository): Response
     {
+        $edit = 0;
         $person = new Person();
         $personRepository->add($person);
 
@@ -86,7 +103,8 @@ class PersonController extends AbstractController
                 return $this->render('person/new.html.twig', [
                     'form' => $form->createView(),
                     'title' => 'Crear persona',
-                    'titleForm' => 'Añadir datos'
+                    'titleForm' => 'Datos de la nueva persona',
+                    'edit' => $edit
                 ]);
             }
             $personRepository->save();
@@ -97,7 +115,8 @@ class PersonController extends AbstractController
         return $this->render('person/new.html.twig', [
             'form' => $form->createView(),
             'title' => 'Crear persona',
-            'titleForm' => 'Añadir datos'
+            'titleForm' => 'Datos del nuevo miembro',
+            'edit' => $edit
         ]);
     }
 
@@ -107,6 +126,7 @@ class PersonController extends AbstractController
         PersonRepository $personRepository,
         Person $person): Response
     {
+        $edit = 1;
         $form = $this->createForm(PersonType::class, $person);
         $form->handleRequest($request);
 
@@ -120,7 +140,8 @@ class PersonController extends AbstractController
                     'form' => $form->createView(),
                     'person' => $person,
                     'title' => 'Editar persona',
-                    'titleForm' => 'Actualizar datos'
+                    'titleForm' => 'Actualizar datos',
+                    'edit' => $edit
                 ]);
             }
 
@@ -133,7 +154,8 @@ class PersonController extends AbstractController
             'form' => $form->createView(),
             'person' => $person,
             'title' => 'Editar persona',
-            'titleForm' => 'Actualizar datos'
+            'titleForm' => 'Actualizar datos',
+            'edit' => $edit
         ]);
     }
 
