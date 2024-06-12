@@ -1,0 +1,30 @@
+{% for season in seasons %}
+    <div class="contenedor-principal">
+        <div class="contenedor-expandir">
+            <div class="expandible">
+                    <div class="contenedor-persona">
+                        <span class="titulo-card"><h2>{{ season.description }}</h2></span>
+                    </div>
+                <div class="iconos">
+                    {% if is_granted('ROLE_DEVELOPER') or is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('season_edit', {'id': season.id}) }}" class="boton"><i class="ti ti-edit a-botones"></i></a>
+                        <a href="{{ path('delete_season', {'id': season.id}) }}" class="boton btn-delete" data-id="{{ season.id }}" data-name="{{ season.description }}"><i class="ti ti-trash a-botones"></i></a>
+                    {% endif %}
+                    <span class="desplegar"><i class="ti ti-chevron-down a-botones"></i></span>
+                </div>
+            </div>
+            <div class="contenedor-desplegable">
+                <div class="contenedor-informacion-desplegable">
+                    <div class="informacion">
+                        <h3>Fecha de incio</h3>
+                        <p>{{ season.startDate | date('d/m/y') }}</p>
+                    </div>
+                    <div class="informacion">
+                        <h3>Fecha de fin</h3>
+                        <p>{{ season.endDate | date('d/m/y')}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}

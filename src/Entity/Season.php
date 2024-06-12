@@ -4,6 +4,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'season')]
@@ -13,10 +14,19 @@ class Season
     #[ORM\GeneratedValue(strategy: 'AUTO')]
     #[ORM\Column(type: 'integer')]
     private int $id;
+    #[Assert\NotBlank(message: 'La temporada es obligatoria')]
+    #[Assert\Regex(
+        pattern: '/^\d{4}\/\d{2}$/',
+        message: 'La temporada debe tener el tener el formato "2023/24"'
+    )]
     #[ORM\Column(type: 'string')]
     private string $description;
+    #[Assert\NotBlank(message: 'La fecha de inicio es obligatoria')]
+    #[Assert\Type("\DateTimeInterface", message: 'La fecha de inicio debe ser una fecha válida')]
     #[ORM\Column(type: 'datetime')]
     private \DateTime $startDate;
+    #[Assert\NotBlank(message: 'La fecha de fin es obligatoria')]
+    #[Assert\Type("\DateTimeInterface", message: 'La fecha de fin debe ser una fecha válida')]
     #[ORM\Column(type: 'datetime')]
     private \DateTime $endDate;
 

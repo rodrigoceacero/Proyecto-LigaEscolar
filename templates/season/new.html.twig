@@ -6,8 +6,8 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
 {% endblock %}
 
 {% block javascripts %}
@@ -25,16 +25,12 @@
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
-                    text: {{ message }},
+                    text: {{ message|json_encode|raw }},
                     confirmButtonText: 'Aceptar',
                     timer: 3000,
                     timerProgressBar: true
-                }).then((result) => {
-                    if (result.dismiss === Swal.DismissReason.timer || result.isConfirmed) {
-                        window.location.href = '{{ path("sports") }}';
-                    }
                 });
-            })
+            });
         </script>
     {% endfor %}
     <div class="contenedor">
@@ -49,28 +45,25 @@
             {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
             <div class="error">{{ form_errors(form) }}</div>
             <div>
-                <div class="error">{{ form_errors(form.name) }}</div>
-                {{ form_label(form.name) }}
-                {{ form_widget(form.name) }}
+                <div class="error">{{ form_errors(form.description) }}</div>
+                {{ form_label(form.description) }}
+                {{ form_widget(form.description) }}
             </div>
             <div>
-                <div class="error">{{ form_errors(form.duration) }}</div>
-                {{ form_label(form.duration) }}
-                {{ form_widget(form.duration) }}
+                <div class="error">{{ form_errors(form.startDate) }}</div>
+                {{ form_label(form.startDate) }}
+                {{ form_widget(form.startDate) }}
             </div>
-            <div class="checkbox-container">
-                <div class="checkbox-item">
-                    {{ form_label(form.active) }}
-                    {{ form_widget(form.active) }}
-                </div>
+            <div>
+                <div class="error">{{ form_errors(form.endDate) }}</div>
+                {{ form_label(form.endDate) }}
+                {{ form_widget(form.endDate) }}
             </div>
         </div>
-        <div>
-            <div class="contenedor-footer-form">
-                <button type="submit" class="btn-guardar-form">Guardar <i class="ti ti-device-floppy"></i></button>
-                {{ form_end(form) }}
-                <a href="{{ path('sports') }}" class="boton-volver-form"><i class="ti ti-arrow-left icono-agregar"></i> Volver</a>
-            </div>
+        <div class="contenedor-footer-form">
+            <button type="submit" class="btn-guardar-form">Guardar <i class="ti ti-device-floppy"></i></button>
+            {{ form_end(form) }}
+            <a href="{{ path('seasons') }}" class="boton-volver-form"><i class="ti ti-arrow-left icono-agregar"></i> Volver</a>
         </div>
     </div>
 {% endblock %}
