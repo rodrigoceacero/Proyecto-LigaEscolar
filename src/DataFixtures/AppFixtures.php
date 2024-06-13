@@ -105,7 +105,7 @@ class AppFixtures extends Fixture
             'duration' => 12,
             'active' => 1
         ]);
-        
+    
         /*
             CREAR DATOS DE PRUEBA DE EQUIPOS ASIGNÁNDOLE A CADA EQUIPO UN DEPORTE
         */
@@ -133,29 +133,36 @@ class AppFixtures extends Fixture
             }
         }
         
+        $seasonCount = 0;
+
         SeasonFactory::createOne([
             'description' => '2020/21',
             'startDate' => new \DateTime('2020/01/1'),
-            'endDate' => new \DateTime('2021/01/1')
+            'endDate' => new \DateTime('2021/01/1'),
+            'teams' => TeamFactory::randomRange(1,5)
         ]);
-
+        $seasonCount++;
         SeasonFactory::createOne([
             'description' => '2021/22',
             'startDate' => new \DateTime('2021/01/1'),
-            'endDate' => new \DateTime('2022/01/1')
+            'endDate' => new \DateTime('2022/01/1'),
+            'teams' => TeamFactory::randomRange(1,5)
         ]);
-
+        $seasonCount++;
         SeasonFactory::createOne([
             'description' => '2022/23',
             'startDate' => new \DateTime('2022/01/1'),
-            'endDate' => new \DateTime('2023/01/1')
+            'endDate' => new \DateTime('2023/01/1'),
+            'teams' => TeamFactory::randomRange(1,5)
         ]);
-
+        $seasonCount++;
         SeasonFactory::createOne([
             'description' => '2023/24',
             'startDate' => new \DateTime('2023/01/1'),
-            'endDate' => new \DateTime('2024/01/1')
+            'endDate' => new \DateTime('2024/01/1'),
+            'teams' => TeamFactory::randomRange(1,5)
         ]);
+        $seasonCount++;
 
         GameMatchFactory::createMany(10, function(){
             return [
