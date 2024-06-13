@@ -103,7 +103,7 @@ class PersonController extends AbstractController
                 return $this->render('person/new.html.twig', [
                     'form' => $form->createView(),
                     'title' => 'Crear persona',
-                    'titleForm' => 'Datos de la nueva persona',
+                    'titleForm' => 'Datos del nuevo miembro',
                     'edit' => $edit
                 ]);
             }
@@ -140,7 +140,6 @@ class PersonController extends AbstractController
                     'form' => $form->createView(),
                     'person' => $person,
                     'title' => 'Editar persona',
-                    'titleForm' => 'Actualizar datos',
                     'edit' => $edit
                 ]);
             }
@@ -154,7 +153,6 @@ class PersonController extends AbstractController
             'form' => $form->createView(),
             'person' => $person,
             'title' => 'Editar persona',
-            'titleForm' => 'Actualizar datos',
             'edit' => $edit
         ]);
     }

@@ -58,7 +58,15 @@
             <div>
             {% if edit == 1 %}
                 <h2 class="titulo-form">
-                    Datos de {{ person.firstName }} {{ person.lastName }}
+                    {% if edit == 1 %}
+                        <h2 class="titulo-form">
+                            Datos de {{ person.firstName }} {{ person.lastName }}
+                        </h2>
+                    {% else %}
+                        <h2 class="titulo-form">
+                            {{ titleForm }}
+                        </h2>
+                    {% endif %}
                 </h2>
             {% else %}
                 <h2 class="titulo-form">
