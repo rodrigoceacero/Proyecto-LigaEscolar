@@ -73,7 +73,7 @@ class SportController extends AbstractController
         return $this->render('sport/new.html.twig', [
             'form' => $form->createView(),
             'title' => 'Crear deporte',
-            'titleForm' => 'Añadir datos',
+            'titleForm' => 'Datos del nuevo deporte',
             'edit' => $edit
         ]);
     }
