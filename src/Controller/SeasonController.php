@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Season;
 use App\Form\SeasonType;
 use App\Repository\SeasonRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,17 +17,24 @@ class SeasonController extends AbstractController
     #[Route('/season', name:'seasons')]
     public function index(
         Request $request,
-        SeasonRepository $seasonRepository
+        SeasonRepository $seasonRepository,
+        PaginatorInterface $paginator
     ): Response {
         $search = $request->query->get('search', '');
         $search = '%' . htmlspecialchars($search, ENT_QUOTES, 'UTF-8') . '%';
-        $seasons = $seasonRepository->findByDescription($search);
+        $query = $seasonRepository->findByDescriptionPaginate($search);
+
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            10
+        );
 
         if ($request->isXmlHttpRequest()) {
             $content = $this->renderView('season/listAjax.html.twig', [
-                'seasons' => $seasons
+                'pagination' => $pagination
             ]);
-            $found = count($seasons) > 0;
+            $found = count($pagination) > 0;
 
             return $this->json([
                 'content' => $content,
@@ -35,7 +43,7 @@ class SeasonController extends AbstractController
         }
 
         return $this->render('season/list.html.twig', [
-            'seasons' => $seasons,
+            'pagination' => $pagination,
         ]);
     }
 

@@ -23,6 +23,14 @@ class SeasonRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findByDescriptionPaginate(string $description)
+    {
+        return $this->createQueryBuilder('s')
+            ->select('s.id, s.description, s.startDate, s.endDate')
+            ->where('s.description LIKE :description')
+            ->setParameter('description', $description)
+            ->getQuery();
+    }
     public function add(Season $season)
     {
         $this->getEntityManager()->persist($season);
