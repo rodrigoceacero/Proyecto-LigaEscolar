@@ -234,7 +234,7 @@ body {
 
 .contenedor-desplegable.expanded {
     background-color: #992a25;
-    max-height: 120px;
+    max-height: 20rem;
 }
 
 .contenedor-informacion-desplegable {
@@ -286,7 +286,7 @@ body {
 
 .boton-volver {
     border-radius: 8px;
-    background-color: deepskyblue;
+    background-color: rgba(200, 20, 13, 0.7);
     text-align: center;
     color: white;
     font-family: 'Jost-Light', sans-serif;
