@@ -36,9 +36,15 @@
     <div class="contenedor">
         <div class="contenedor-cabecera">
             <div>
-                <h2 class="titulo-form">
-                    {{ titleForm }}
-                </h2>
+                {% if edit == 1 %}
+                    <h2 class="titulo-form">
+                        Datos de {{ season.description }}
+                    </h2>
+                {% else %}
+                    <h2 class="titulo-form">
+                        {{ titleForm }}
+                    </h2>
+                {% endif %}
             </div>
         </div>
         <div class="contenedor-form">

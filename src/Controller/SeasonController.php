@@ -52,6 +52,7 @@ class SeasonController extends AbstractController
         Request $request,
         SeasonRepository $seasonRepository): Response
     {
+        $edit = 0;
         $season = new Season();
         $seasonRepository->add($season);
 
@@ -67,7 +68,9 @@ class SeasonController extends AbstractController
                 return $this->render('season/new.html.twig', [
                     'form' => $form->createView(),
                     'title' => 'Crear temporada',
-                    'titleForm' => 'Añadir datos'
+                    'titleForm' => 'Datos de la nueva temporada',
+                    'season' => $season,
+                    'edit' => $edit
                 ]);
             }
 
@@ -79,7 +82,9 @@ class SeasonController extends AbstractController
         return $this->render('season/new.html.twig', [
             'form' => $form->createView(),
             'title' => 'Crear temporada',
-            'titleForm' => 'Añadir datos'
+            'titleForm' => 'Datos de la nueva temporada',
+            'season' => $season,
+            'edit' => $edit
         ]);
     }
 
@@ -89,6 +94,7 @@ class SeasonController extends AbstractController
         SeasonRepository $seasonRepository,
         Season $season): Response
     {
+        $edit = 1;
         $form = $this->createForm(SeasonType::class, $season);
         $form->handleRequest($request);
 
@@ -102,7 +108,8 @@ class SeasonController extends AbstractController
                     'form' => $form->createView(),
                     'season' => $season,
                     'title' => 'Editar temporada',
-                    'titleForm' => 'Actualizar datos'
+                    'titleForm' => 'Datos de la nueva temporada',
+                    'edit' => $edit
                 ]);
             }
 
@@ -115,7 +122,8 @@ class SeasonController extends AbstractController
             'form' => $form->createView(),
             'season' => $season,
             'title' => 'Editar temporada',
-            'titleForm' => 'Actualizar datos'
+            'titleForm' => 'Datos de la nueva temporada',
+            'edit' => $edit
         ]);
     }
 
