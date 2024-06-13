@@ -6,6 +6,7 @@ use App\Repository\TeamRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TeamRepository::class)]
 #[ORM\Table(name: 'team')]
@@ -16,13 +17,15 @@ class Team
     #[ORM\Column(type: 'integer')]
     private ?int $id;
     #[ORM\Column(type: 'string')]
+    #[Assert\NotBlank(message: 'El nombre es obligatorio')]
     private ?string $name;
     #[ORM\Column(type: 'string')]
+    #[Assert\NotBlank(message: 'El nombre de la escuela es obligatorio')]
     private ?string $school;
     #[ORM\OneToMany(targetEntity: Person::class, mappedBy: 'team')]
     private Collection $players;
-
     #[ORM\ManyToOne(inversedBy: 'teams')]
+    #[Assert\NotBlank(message: 'El deporte es obligatorio')]
     private ?Sport $sport = null;
 
     #[ORM\ManyToMany(targetEntity: Season::class, mappedBy: 'teams')]

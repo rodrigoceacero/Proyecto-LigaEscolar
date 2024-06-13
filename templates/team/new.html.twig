@@ -1,10 +1,44 @@
-{% extends 'layout.html.twig' %}
-
-{% block body %}
-
-{% endblock %}
+{% extends 'base.html.twig' %}
 
 {% block title %}
-
+    Crear nuevo equipo
 {% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+    <script src="{{ asset('javascript/placeholderSeason.js') }}"></script>
+{% endblock %}
+
+{% block header %}
+    {% include 'navbar.html.twig' %}
+{% endblock %}
+
+{% block body %}
+    <div class="contenedor">
+        <div class="contenedor-cabecera">
+            <div>
+                <h2 class="titulo-form">
+                    Añadir datos del equipo
+                </h2>
+            </div>
+            <div class="contenedor-derecha-form">
+                <div>
+                    <a href="{{ path('teams') }}" class="boton-cancelar"> Cancelar <i class="ti ti-circle-x icono-cancelar"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="contenedor-form">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <button type="submit" class="btn-guardar-form">Guardar <i class="ti ti-device-floppy"></i></button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

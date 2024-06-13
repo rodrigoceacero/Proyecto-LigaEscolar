@@ -49,10 +49,10 @@ class TeamController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $teamRepository->save();
+            $this->addFlash('success', 'Equipo creado con éxito');
         }
         return $this->render('team/new.html.twig', [
             'form' => $form->createView(),
-            'team' => $team
         ]);
     }
 
