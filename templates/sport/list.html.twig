@@ -10,52 +10,7 @@
 {% block javascripts %}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('javascript/desplegable.js') }}"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const searchForm = document.getElementById('search-form');
-            const searchInput = document.getElementById('search');
-            const containerList = document.getElementById('listar');
-
-            searchForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-
-                const name = searchInput.value;
-
-                fetch(`${searchForm.action}?search=${encodeURIComponent(name)}`, {
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                })
-                    .then(response => {
-                        return response.json();
-                    })
-                    .then(data => {
-                        if (!data.found) {
-                            Swal.fire({
-                                title: 'No hay deportes con ese nombre, inténtalo de nuevo',
-                                icon: 'info',
-                                confirmButtonText: 'OK',
-                                customClass: {
-                                    confirmButton: 'btn-sweet',
-                                    title: 'titulo-sweet'
-                                }
-                            });
-                        } else {
-                            containerList.innerHTML = data.content;
-                            searchInput.value = '';
-                            attachExpandListeners();
-                            attachDeleteListeners();
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
-            });
-
-            attachExpandListeners();
-            attachDeleteListeners();
-        });
-    </script>
+    <script src="{{ asset('javascript/search.js') }}"></script>
     {% for message in app.session.flashBag.get('success') %}
         <script src="{{ asset('javascript/created.js') }}"></script>
     {% endfor %}
@@ -77,7 +32,7 @@
         </div>
         <div class="contenedor-derecha">
             <div class="contenedor-search {% if not is_granted('ROLE_ADMIN') and not is_granted('ROLE_DEVELOPER') %}contenedor-usuario{% endif %}">
-                <form id="search-form" method="get" action="{{ path('search_sport') }}">
+                <form id="search-form" method="get" action="{{ path('sports') }}">
                     <input type="hidden" name="inactive" value="false">
                     <input type="text" id="search" name="search" placeholder="Buscar deporte" autofocus="autofocus" value="{{ app.request.get('search') }}" class="input-buscar">
                     <button type="submit" id="btn-search" class="boton-buscar">
@@ -98,6 +53,9 @@
     <div class="contenedor-footer">
         <div class="volver">
             <a href="{{ path('main_app') }}" class="boton-volver"><i class="ti ti-arrow-left icono-agregar"></i> Volver</a>
+        </div>
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
         </div>
     </div>
 {% endblock %}

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Sport;
 use App\Form\SportType;
 use App\Repository\SportRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -15,31 +16,29 @@ use Symfony\Component\Routing\Annotation\Route;
 class SportController extends AbstractController
 {
     #[Route('/sport', name: 'sports')]
-    final public function index(
-        SportRepository $sportRepository
+    public function index(
+        Request $request,
+        SportRepository $sportRepository,
+        PaginatorInterface $paginator
     ): Response
-    {
-        $sports = $sportRepository->findOrderByName();
-
-        return $this->render('sport/list.html.twig', [
-            'sports' => $sports,
-        ]);
-    }
-
-    #[Route('/sport/search', name: 'search_sport')]
-    public function search(Request $request, SportRepository $sportRepository): Response
     {
         $search = $request->query->get('search', '');
         $inactive = $request->query->get('inactive', 'false') === 'true';
         $search = '%' . htmlspecialchars($search, ENT_QUOTES, 'UTF-8') . '%';
 
-        $sports = $sportRepository->findByName($search);
+        $query = $sportRepository->findByNamePagination($search);
+
+        $pagination = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            10
+        );
 
         if ($request->isXmlHttpRequest()) {
             $content = $this->renderView('sport/listAjax.html.twig', [
-                'sports' => $sports,
+                'pagination' => $pagination,
             ]);
-            $found = count($sports) > 0;
+            $found = count($pagination) > 0;
 
             return $this->json([
                 'content' => $content,
@@ -48,7 +47,7 @@ class SportController extends AbstractController
         }
 
         return $this->render('sport/list.html.twig', [
-            'sports' => $sports,
+            'pagination' => $pagination,
             'inactive' => $inactive,
         ]);
     }
@@ -58,6 +57,7 @@ class SportController extends AbstractController
         Request $request,
         SportRepository $sportRepository): Response
     {
+        $edit = 0;
         $sport= new Sport();
         $sportRepository->add($sport);
 
@@ -73,7 +73,8 @@ class SportController extends AbstractController
         return $this->render('sport/new.html.twig', [
             'form' => $form->createView(),
             'title' => 'Crear deporte',
-            'titleForm' => 'Añadir datos'
+            'titleForm' => 'Añadir datos',
+            'edit' => $edit
         ]);
     }
 
@@ -83,6 +84,7 @@ class SportController extends AbstractController
         SportRepository $sportRepository,
         Sport $sport): Response
     {
+        $edit = 1;
         $form = $this->createForm(SportType::class, $sport);
 
         $form->handleRequest($request);
@@ -97,7 +99,8 @@ class SportController extends AbstractController
             'form' => $form->createView(),
             'sport' => $sport,
             'title' => 'Editar deporte',
-            'titleForm' => 'Actualizar datos'
+            'titleForm' => 'Actualizar datos',
+            'edit' => $edit
         ]);
     }
 }

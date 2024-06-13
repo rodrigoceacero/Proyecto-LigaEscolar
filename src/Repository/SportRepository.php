@@ -13,28 +13,6 @@ class SportRepository extends ServiceEntityRepository
         parent::__construct($registry, Sport::class);
     }
 
-    public function findByNameActive(string $name)
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.name LIKE :name')
-            ->andWhere('s.active = true')
-            ->setParameter('name', $name)
-            ->orderBy('s.name', 'ASC')
-            ->getQuery()
-            ->getResult();
-    }
-
-    public function findByNameInactive(string $name)
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.name LIKE :name')
-            ->andWhere('s.active = false')
-            ->setParameter('name', $name)
-            ->orderBy('s.name', 'ASC')
-            ->getQuery()
-            ->getResult();
-    }
-
     public function findOrderByName(){
         return $this->createQueryBuilder('s')
             ->select('s.id, s.name, s.duration, s.active')
@@ -51,6 +29,15 @@ class SportRepository extends ServiceEntityRepository
             ->setParameter('name', $name)
             ->getQuery()
             ->getResult();
+    }
+
+    public function findByNamePagination(string $name){
+        return $this->createQueryBuilder('s')
+            ->select('s.id, s.name, s.duration, s.active')
+            ->where('s.name LIKE :name')
+            ->orderBy('s.name')
+            ->setParameter('name', $name)
+            ->getQuery();
     }
 
     public function add(Sport $sport)

@@ -1,9 +1,12 @@
-{% for sport in sports %}
+{% for sport in pagination %}
     <div class="contenedor-principal">
         <div class="contenedor-expandir">
             <div class="expandible">
                 <div class="contenedor-persona">
                     <span class="titulo-card"><h2>{{ sport.name }}</h2></span>
+                    {% if sport.active == 0 %}
+                    <span class="p-rol">Inactivo<p></span>
+                    {% endif %}
                 </div>
                 <div class="iconos">
                     {% if is_granted('ROLE_DEVELOPER') or is_granted('ROLE_ADMIN') %}
