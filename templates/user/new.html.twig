@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const isAdminCheckbox = document.getElementById('user_isDeveloper');
+            const isDeveloperCheckbox = document.getElementById('user_isAdmin');
+
+            function toggleCheckboxes() {
+                if (isAdminCheckbox.checked) {
+                    isDeveloperCheckbox.checked = true;
+                }
+            }
+
+            isDeveloperCheckbox.addEventListener('change', toggleCheckboxes);
+            isAdminCheckbox.addEventListener('change', toggleCheckboxes);
+
+            toggleCheckboxes();
+        });
+    </script>
+{% endblock %}
+
+{% block header %}
+    {% include 'navbar.html.twig' %}
+{% endblock %}
+
+{% block body %}
+    {% for message in app.flashes('error') %}
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: '{{ message }}'
+            });
+        </script>
+    {% endfor %}
+    <div class="contenedor">
+        <div class="contenedor-cabecera">
+            <div>
+                {% if edit == 1 %}
+                    <h2 class="titulo-form">
+                        Datos de {{ user.username }}
+                    </h2>
+                {% else %}
+                    <h2 class="titulo-form">
+                        {{ titleForm }}
+                    </h2>
+                {% endif %}
+            </div>
+        </div>
+        <div class="contenedor-form">
+            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+            <div>
+                {{ form_label(form.username) }}
+                {{ form_widget(form.username) }}
+                <div class="error">{{ form_errors(form.username) }}</div>
+            </div>
+            <div>
+                {{ form_label(form.email) }}
+                {{ form_widget(form.email) }}
+                <div class="error">{{ form_errors(form.email) }}</div>
+            </div>
+            <div class="checkbox-container">
+                <div class="checkbox-item">
+                    {{ form_label(form.isDeveloper) }}
+                    {{ form_widget(form.isDeveloper) }}
+                </div>
+                <div class="checkbox-item">
+                    {{ form_label(form.isAdmin) }}
+                    {{ form_widget(form.isAdmin) }}
+                </div>
+            </div>
+            <div class="error error-checkbox">{{ form_errors(form.isDeveloper) }}</div>
+        </div>
+        <div>
+            <div class="contenedor-footer-form">
+                <button type="submit" class="btn-guardar-form">Guardar <i class="ti ti-device-floppy"></i></button>
+                {{ form_end(form) }}
+                <a href="{{ path('users') }}" class="boton-volver-form"><i class="ti ti-arrow-left icono-agregar"></i> Volver</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

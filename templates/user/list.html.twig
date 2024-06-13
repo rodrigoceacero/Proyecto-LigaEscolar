@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Miembros{% endblock %}
+{% block title %}Usuarios{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/cardmain.css') }}">
@@ -13,12 +13,18 @@
     <script src="{{ asset('javascript/search.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const deleteUrlBase = '{{ path('delete_person', { 'id': 'ID_PLACEHOLDER' })|replace({'ID_PLACEHOLDER': ''}) }}';
+            const deleteUrlBase = '{{ path('delete_user', { 'id': 'ID_PLACEHOLDER' })|replace({'ID_PLACEHOLDER': ''}) }}';
             document.getElementById('listar').setAttribute('data-delete-url', deleteUrlBase);
             attachDeleteListeners(deleteUrlBase);
         });
-    </script>
 
+        function updateContent(content) {
+            document.getElementById('listar').innerHTML = content;
+            attachExpandListeners();
+            const deleteUrlBase = document.getElementById('listar').getAttribute('data-delete-url');
+            attachDeleteListeners(deleteUrlBase);
+        }
+    </script>
     <script src="{{ asset('javascript/delete.js') }}"></script>
     {% for message in app.session.flashBag.get('success') %}
         <script src="{{ asset('javascript/created.js') }}"></script>
@@ -36,13 +42,13 @@
     <div class="cabecera-crud">
         <div>
             <h2 class="h2-titulo">
-                Miembros
+                Usuarios
             </h2>
         </div>
         <div class="contenedor-derecha">
             <div class="contenedor-search {% if not is_granted('ROLE_ADMIN') and not is_granted('ROLE_DEVELOPER') %}contenedor-usuario{% endif %}">
-                <form id="search-form" method="get" action="{{ path('people') }}">
-                    <input type="text" id="search" name="search" placeholder="Buscar persona" autofocus="autofocus" value="{{ app.request.get('search') }}" class="input-buscar">
+                <form id="search-form" method="get" action="{{ path('users') }}">
+                    <input type="text" id="search" name="search" placeholder="Buscar usuario" autofocus="autofocus" value="{{ app.request.get('search') }}" class="input-buscar">
                     <button type="submit" id="btn-search" class="boton-buscar">
                         <i class="ti ti-search icono-buscar"></i>
                     </button>
@@ -50,13 +56,13 @@
             </div>
             {% if is_granted('ROLE_DEVELOPER') or is_granted('ROLE_ADMIN') %}
                 <div class="contenedor-agregar">
-                    <a href="{{ path('new_person') }}" class="boton-agregar"><i class="ti ti-circle-plus icono-agregar"></i> Crear nueva persona</a>
+                    <a href="{{ path('new_user') }}" class="boton-agregar"><i class="ti ti-circle-plus icono-agregar"></i> Crear nuevo usuario</a>
                 </div>
             {% endif %}
         </div>
     </div>
     <div id="listar">
-        {% include 'person/listAjax.html.twig' %}
+        {% include 'user/listAjax.html.twig' %}
     </div>
     <div class="contenedor-footer">
         <div class="volver">

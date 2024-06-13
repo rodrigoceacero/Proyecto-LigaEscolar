@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'user')]
@@ -15,12 +16,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'integer')]
     private ?int $id;
     #[ORM\Column(type: 'string')]
+    #[Assert\NotBlank(message: 'El nombre de usuario no puede estar vacío')]
     private ?string $username;
     #[ORM\Column(type: 'string')]
+    #[Assert\NotBlank(message: 'El email no puede estar vacío')]
+    #[Assert\Regex(
+        pattern: "/^[\w.%+-]+@[a-z.-]+\.[a-z]{2,}$/",
+        message: "No es un correo válido. (ejemplo@ejemplo.es)"
+    )]
     private ?string $email;
     #[ORM\Column(type: 'string')]
     private ?string $password;
     #[ORM\Column(type: 'boolean')]
+
     private ?bool $isDeveloper;
     #[ORM\Column(type: 'boolean')]
     private ?bool $isAdmin;

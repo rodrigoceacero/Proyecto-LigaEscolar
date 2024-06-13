@@ -1,0 +1,29 @@
+{% for user in pagination %}
+    <div class="contenedor-principal">
+        <div class="contenedor-expandir">
+            <div class="expandible">
+                <div class="contenedor-persona">
+                        <span class="titulo-card"><h2>{{ user.username }}</h2></span>
+                    {% if user.isAdmin == 1 %}
+                        <span class="p-rol">Desarrollador | Administrador<p></span>
+                    {% elseif user.isDeveloper == 1 %}
+                        <span class="p-rol">Desarrollador<p></span>
+                    {% endif %}
+                </div>
+                <div class="iconos">
+                    <a href="{{ path('user_edit', {'id': user.id}) }}" class="boton"><i class="ti ti-edit a-botones"></i></a>
+                    <a href="{{ path('delete_user', {'id': user.id}) }}" class="boton btn-delete" data-id="{{ user.id }}" data-name="{{ user.username }}"><i class="ti ti-trash a-botones"></i></a>
+                    <span class="desplegar"><i class="ti ti-chevron-down a-botones"></i></span>
+                </div>
+            </div>
+            <div class="contenedor-desplegable">
+                <div class="contenedor-informacion-desplegable">
+                    <div class="informacion">
+                        <h3>Correo electrónico</h3>
+                        <p>{{ user.email }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}

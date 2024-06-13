@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const searchForm = document.getElementById('search-form');
-    const personList = document.getElementById('listar');
+    const list = document.getElementById('listar');
 
     searchForm.addEventListener('submit', function(event) {
         event.preventDefault();
@@ -12,22 +12,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 'X-Requested-With': 'XMLHttpRequest'
             }
         })
-        .then(response => response.json())
-        .then(data => {
-            if (!data.found){
-                Swal.fire({
-                    title: 'No se han encontrado datos, inténtalo de nuevo',
-                    icon: 'info',
-                    confirmButtonText: 'OK',
-                    customClass: {
-                        confirmButton: 'btn-sweet',
-                        title: 'titulo-sweet'
-                    }
-                });
-            }else{
-                personList.innerHTML = data.content;          
-            }                
-        })
-        .catch(error => console.error('Error:', error));
+            .then(response => response.json())
+            .then(data => {
+                if (!data.found){
+                    Swal.fire({
+                        title: 'No se han encontrado datos, inténtalo de nuevo',
+                        icon: 'info',
+                        confirmButtonText: 'OK',
+                        customClass: {
+                            confirmButton: 'btn-sweet',
+                            title: 'titulo-sweet'
+                        }
+                    });
+                } else {
+                    list.innerHTML = data.content;
+                    attachExpandListeners();
+                    const deleteUrlBase = list.getAttribute('data-delete-url');
+                    attachDeleteListeners(deleteUrlBase);
+                }
+            })
     });
 });
