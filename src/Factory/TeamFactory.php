@@ -50,7 +50,8 @@ final class TeamFactory extends ModelFactory
         return [
             'name' => $teamName,
             'school' => 'Escuela de ' . $teamName,
-            'sport' => SportFactory::random()
+            'sport' => SportFactory::random(),
+            'logo' => self::faker()->imageUrl(100, 100, 'sports', true, $teamName)
         ];
     }
 

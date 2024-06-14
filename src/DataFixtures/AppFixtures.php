@@ -110,7 +110,7 @@ class AppFixtures extends Fixture
             CREAR DATOS DE PRUEBA DE EQUIPOS ASIGNÁNDOLE A CADA EQUIPO UN DEPORTE
         */
         $faker = Factory::create();
-        $teams = TeamFactory::createMany(5);
+        $teams = TeamFactory::createMany(20);
 
         foreach ($teams as $team) {
             /*
