@@ -43,8 +43,10 @@ class TeamController extends AbstractController
         }
 
         if ($request->isXmlHttpRequest()) {
-            $content = $this->renderView('team/listAjax.html.twig',
-                ['pagination' => $pagination]
+            $content = $this->renderView('team/listAjax.html.twig', [
+                    'pagination' => $pagination,
+                    'logos' => $logos
+                ]
             );
             $found = count($pagination) > 0;
 

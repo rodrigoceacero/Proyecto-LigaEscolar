@@ -20,8 +20,7 @@ class TeamRepository extends ServiceEntityRepository
             ->where('t.name LIKE :name')
             ->setParameter('name', $name)
             ->orderBy('t.name')
-            ->getQuery()
-            ->getResult();
+            ->getQuery();
     }
 
     public function findByName(string $name){

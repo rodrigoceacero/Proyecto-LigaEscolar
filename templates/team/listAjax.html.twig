@@ -4,7 +4,7 @@
             <div class="expandible">
                 <div class="contenedor-persona">
                     <div class="contenedor-imagen-texto">
-                        {% if logos[key] is not null %}
+                        {% if logos is defined and logos[key] is not null %}
                             {% if team.active == 1 %}
                                 <img src="data:image/jpeg;base64,{{ logos[key] }}" alt="{{ team.name }}" class="logo-team">
                                 <div>
