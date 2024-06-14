@@ -127,6 +127,62 @@ body {
     box-shadow: 2px 2px 21px -6px rgba(0,0,0,0.75);
 }
 
+.form-select option{
+    font-weight: bold;
+}
+
+.form-select-temporadas {
+    box-sizing: border-box;
+    width: 40.5%;
+    padding: 0.6rem;
+    border-radius: 8px 0px 0px 8px;
+    font-size: 1rem;
+    font-family: 'Jost-ExtraLight', sans-serif;
+    font-weight: bold;
+    color: white;
+    -webkit-box-shadow: 2px 2px 21px -6px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 2px 21px -6px rgba(0,0,0,0.75);
+    box-shadow: 2px 2px 21px -6px rgba(0,0,0,0.75);
+}
+
+.form-select-temporadas:focus {
+    border-color: rgba(55, 0, 0, 0.82);
+    outline: none;
+    -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #992a25;
+    border-radius: 8px;
+    font-size: 1.4rem;
+    color: white;
+    font-weight: bold;
+    box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    color: white;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #d43f3a;
+    font-size: 1.3rem;
+    color: white;
+}
+
+.select2-dropdown {
+    background-color: #ffffff;
+    border: 1px solid #a12a2a;
+}
+
+.select2-search--dropdown .select2-search__field {
+    background-color: #ffffff;
+    color: #000;
+    font-family: 'Jost-Regular', sans-serif;
+}
+
 .form-checkbox {
     transform: scale(1.5);
 }
@@ -145,19 +201,6 @@ body {
 .checkbox-item .form-checkbox {
     margin-left: 0.7rem;
     margin-right: 0.7rem;
-}
-
-.form-select-deporte{
-    width: 99.8%;
-    border-radius: 8px;
-    padding: 0.6rem;
-    margin-bottom: 1.5rem;
-    border: 1px solid #ffffff;
-    font-size: 1rem;
-    font-family: 'Jost-Regular', sans-serif;
-    -webkit-box-shadow: 2px 2px 21px -6px rgba(0,0,0,0.75);
-    -moz-box-shadow: 2px 2px 21px -6px rgba(0,0,0,0.75);
-    box-shadow: 2px 2px 21px -6px rgba(0,0,0,0.75);
 }
 
 .form-input:focus,
@@ -237,4 +280,18 @@ body {
     transform: scale(1.03);
     transition-property: all;
     transition-duration: 0.2s;
+}
+
+.form-file{
+    display: block;
+    box-sizing: border-box;
+    width: 98.5%;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'Jost-SemiBold', sans-serif;
+    font-weight: bold;
+}
+
+.input#file-upload-button{
+    color: yellow;
 }

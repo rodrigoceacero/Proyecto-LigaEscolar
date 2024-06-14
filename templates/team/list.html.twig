@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Equipos {% endblock %}
+{% block title %}Equipos{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/cardmain.css') }}">
@@ -10,11 +10,55 @@
 {% block javascripts %}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('javascript/desplegable.js') }}"></script>
-    <script src="{{ asset('javascript/search.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchForm = document.getElementById('search-form');
+            const list = document.getElementById('listar');
+
+            searchForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const formData = new FormData(searchForm);
+                const params = new URLSearchParams(formData).toString();
+
+                fetch(`${searchForm.action}?${params}`, {
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                    },
+
+                })console()
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.found){
+                            Swal.fire({
+                                title: 'No se han encontrado datos, inténtalo de nuevo',
+                                icon: 'info',
+                                confirmButtonText: 'OK',
+                                customClass: {
+                                    confirmButton: 'btn-sweet',
+                                    title: 'titulo-sweet'
+                                }
+                            });
+                        } else {
+                            list.innerHTML = data.content;
+                            attachExpandListeners();
+                            const deleteUrlBase = list.getAttribute('data-delete-url');
+                            attachDeleteListeners(deleteUrlBase);
+                        }
+                    })
+            });
+        });
+
+    </script>
+    {% for message in app.session.flashBag.get('success') %}
+        <script src="{{ asset('javascript/created.js') }}"></script>
+    {% endfor %}
+    {% for message in app.session.flashBag.get('updated') %}
+        <script src="{{ asset('javascript/updated.js') }}"></script>
+    {% endfor %}
 {% endblock %}
 
 {% block header %}
-    {% include 'navbar.html.twig'%}
+    {% include 'navbar.html.twig' %}
 {% endblock %}
 
 {% block body %}
@@ -25,7 +69,7 @@
             </h2>
         </div>
         <div class="contenedor-derecha">
-            <div class="contenedor-search">
+            <div class="contenedor-search {% if not is_granted('ROLE_ADMIN') and not is_granted('ROLE_DEVELOPER') %}contenedor-usuario{% endif %}">
                 <form id="search-form" method="get" action="{{ path('teams') }}">
                     <input type="text" id="search" name="search" placeholder="Buscar equipo" autofocus="autofocus" value="{{ app.request.get('search') }}" class="input-buscar">
                     <button type="submit" id="btn-search" class="boton-buscar">
@@ -34,13 +78,21 @@
                 </form>
             </div>
             {% if is_granted('ROLE_DEVELOPER') or is_granted('ROLE_ADMIN') %}
-                <div>
-                    <a href="{{path('new_team')}}" class="boton-agregar"><i class="ti ti-plus icono-agregar"></i> Crear nuevo equipo</a>
+                <div class="contenedor-agregar">
+                    <a href="{{ path('new_team') }}" class="boton-agregar"><i class="ti ti-circle-plus icono-agregar"></i> Crear nuevo equipo</a>
                 </div>
             {% endif %}
         </div>
     </div>
     <div id="listar">
-        {% include 'team/listAjax.html.twig' with {'teams': teams} %}
+        {% include 'team/listAjax.html.twig' %}
+    </div>
+    <div class="contenedor-footer">
+        <div class="volver">
+            <a href="{{ path('main_app') }}" class="boton-volver"><i class="ti ti-arrow-left icono-agregar"></i> Volver</a>
+        </div>
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
     </div>
 {% endblock %}

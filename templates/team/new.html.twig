@@ -1,44 +1,104 @@
 {% extends 'base.html.twig' %}
 
+
 {% block title %}
-    Crear nuevo equipo
+    {{ title }}
 {% endblock %}
+
 
 {% block stylesheets %}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
     <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+
 {% endblock %}
 
+
 {% block javascripts %}
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
-    <script src="{{ asset('javascript/placeholderSeason.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        $(document).ready(function() {
+            $('.form-select-temporadas').select2({
+                placeholder: "Seleccione una o varias temporadas...",
+                allowClear: true,
+                width: 'resolve',
+            });
+        });
+    </script>
 {% endblock %}
+
 
 {% block header %}
     {% include 'navbar.html.twig' %}
 {% endblock %}
 
+
 {% block body %}
+    {% for message in app.flashes('error') %}
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: '{{ message }}'
+            });
+        </script>
+    {% endfor %}
     <div class="contenedor">
         <div class="contenedor-cabecera">
             <div>
-                <h2 class="titulo-form">
-                    Añadir datos del equipo
-                </h2>
-            </div>
-            <div class="contenedor-derecha-form">
-                <div>
-                    <a href="{{ path('teams') }}" class="boton-cancelar"> Cancelar <i class="ti ti-circle-x icono-cancelar"></i></a>
-                </div>
+                {% if edit == 1 %}
+                    <h2 class="titulo-form">
+                        Datos de {{ team.name }}
+                    </h2>
+                {% else %}
+                    <h2 class="titulo-form">
+                        {{ titleForm }}
+                    </h2>
+                {% endif %}
             </div>
         </div>
         <div class="contenedor-form">
-            {{ form_start(form) }}
-            {{ form_widget(form) }}
-            <button type="submit" class="btn-guardar-form">Guardar <i class="ti ti-device-floppy"></i></button>
-            {{ form_end(form) }}
+            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+            <div>
+                <div class="error">{{ form_errors(form.name) }}</div>
+                {{ form_label(form.name) }}
+                {{ form_widget(form.name) }}
+            </div>
+            <div>
+                <div class="error">{{ form_errors(form.school) }}</div>
+                {{ form_label(form.school) }}
+                {{ form_widget(form.school) }}
+            </div>
+            <div>
+                <div class="error">{{ form_errors(form.sport) }}</div>
+                {{ form_label(form.sport) }}
+                {{ form_widget(form.sport) }}
+            </div>
+            <div class="form-file">
+                <div class="error">{{ form_errors(form.logo) }}</div>
+                {{ form_label(form.logo) }}
+                {{ form_widget(form.logo) }}
+            </div>
+            <div>
+                <div class="error">{{ form_errors(form.seasons) }}</div>
+                {{ form_label(form.seasons) }}
+                {{ form_widget(form.seasons, {'attr': {'class': 'form-select-temporadas'}}) }}
+            </div>
+            <div>
+                <div class="error">{{ form_errors(form.active) }}</div>
+                {{ form_label(form.active) }}
+                {{ form_widget(form.active) }}
+            </div>
+        </div>
+        <div>
+            <div class="contenedor-footer-form">
+                <button type="submit" class="btn-guardar-form">Guardar <i class="ti ti-device-floppy"></i></button>
+                {{ form_end(form) }}
+                <a href="{{ path('teams') }}" class="boton-volver-form"><i class="ti ti-arrow-left icono-agregar"></i> Volver</a>
+            </div>
         </div>
     </div>
 {% endblock %}

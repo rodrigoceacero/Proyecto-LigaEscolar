@@ -1,27 +1,43 @@
-{% for team in teams %}
+{% for key, team in pagination %}
     <div class="contenedor-principal" id="listar">
         <div class="contenedor-expandir">
             <div class="expandible">
-                <span class="titulo"><h6>{{ team.name }}</h6></span>
+                <div class="contenedor-persona">
+                    <div class="contenedor-imagen-texto">
+                        {% if logos[key] is not null %}
+                            {% if team.active == 1 %}
+                                <img src="data:image/jpeg;base64,{{ logos[key] }}" alt="{{ team.name }}" class="logo-team">
+                                <div>
+                                    <span class="titulo-card"><h2>{{ team.name }}</h2></span>
+                                </div>
+                            {% else %}
+                                <img src="data:image/jpeg;base64,{{ logos[key] }}" alt="{{ team.name }}" class="logo-team">
+                                <div>
+                                    <span class="titulo-card"><h2>{{ team.name }}</h2></span>
+                                    <span class="p-rol">Inactivo</span>
+                                </div>
+                            {% endif %}
+                        {% else %}
+                            {% if team.active == 1 %}
+                                <span class="titulo-card"><h2>{{ team.name }}</h2></span>
+                            {% else %}
+                                <div>
+                                    <span class="titulo-card"><h2>{{ team.name }}</h2></span>
+                                    <span class="p-rol">Inactivo</span>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
                 <div class="iconos">
                     {% if is_granted('ROLE_DEVELOPER') or is_granted('ROLE_ADMIN') %}
-                        <a href="" class="boton"><i class="ti ti-edit a-botones"></i></a>
-                        <a href="" class="boton"><i class="ti ti-trash a-botones"></i></a>
+                        <a href="{{ path('team_edit', {'id': team.id}) }}" class="boton"><i class="ti ti-edit a-botones"></i></a>
                     {% endif %}
                     <span class="desplegar"><i class="ti ti-chevron-down a-botones"></i></span>
                 </div>
             </div>
-            <div class="contenedor-warning">
-                {% if team.seasons is empty %}
-                    <h3 class="warning"><i class="ti ti-alert-circle icono-warning"></i> No tiene ninguna temporada asignada</h3>
-                {% endif %}
-            </div>
             <div class="contenedor-desplegable">
                 <div class="contenedor-informacion-desplegable">
-                    <div class="informacion">
-                        <h3>Nombre</h3>
-                        <p>{{ team.name }}</p>
-                    </div>
                     <div class="informacion">
                         <h3>Escuela</h3>
                         <p>{{ team.school }}</p>
@@ -30,14 +46,14 @@
                         <h3>Deporte</h3>
                         <p>{{ team.sport.name }}</p>
                     </div>
-                    <div class="informacion">
-                        <h3>Temporadas</h3>
-                        <p> {% for season in team.seasons %}
-                                {{ season.description }}
-                                {% if not loop.last %} - {% endif %}
+                    {% if team.seasons %}
+                        <div class="informacion">
+                            <h3>Temporadas</h3>
+                            {% for season in team.seasons %}
+                                <p>{{ season.description }}</p>
                             {% endfor %}
-                        </p>
-                    </div>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

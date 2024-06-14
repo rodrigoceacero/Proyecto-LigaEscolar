@@ -22,6 +22,10 @@ class Team
     #[ORM\Column(type: 'string')]
     #[Assert\NotBlank(message: 'El nombre de la escuela es obligatorio')]
     private ?string $school;
+    #[ORM\Column(type: 'blob', nullable: true)]
+    private $logo;
+    #[ORM\Column(type: 'boolean')]
+    private bool $active = true;
     #[ORM\OneToMany(targetEntity: Person::class, mappedBy: 'team')]
     private Collection $players;
     #[ORM\ManyToOne(inversedBy: 'teams')]
@@ -64,6 +68,32 @@ class Team
     public function setSchool(string $school): void
     {
         $this->school = $school;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLogo()
+    {
+        return $this->logo;
+    }
+
+    /**
+     * @param mixed $logo
+     */
+    public function setLogo($logo): void
+    {
+        $this->logo = $logo;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): void
+    {
+        $this->active = $active;
     }
 
     /**

@@ -389,3 +389,20 @@ body {
     width: 10px;
     border: none;
 }
+
+.contenedor-imagen-texto {
+    display: flex;
+    align-items: center;
+}
+
+.logo-team {
+    width: 100px;
+    height: 100px;
+    margin-right: 15px;
+    object-fit: contain;
+}
+
+.texto-imagen {
+    display: flex;
+    flex-direction: column;
+}
