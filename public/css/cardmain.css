@@ -406,3 +406,58 @@ body {
     display: flex;
     flex-direction: column;
 }
+
+.titulo-card{
+    font-family: 'Jost-Light', sans-serif;
+}
+
+.contenedor-informacion-equipo{
+    margin-top: -1rem;
+}
+
+.boton-equipo-editar{
+    margin-right: 0.8rem;
+}
+
+.contenedor-expandir {
+    position: relative;
+}
+
+.contenedor-expandir.inactivo {
+    opacity: 0.8;
+}
+
+.overlay-inactivo {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(153, 42, 37, 0.5);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.overlay-inactivo p {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.iconos {
+    position: relative;
+}
+
+.informacion-detalle {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.informacion-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.informacion-item:not(:last-child) {
+    margin-right: 2rem;
+}

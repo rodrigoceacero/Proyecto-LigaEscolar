@@ -1,58 +1,35 @@
 {% for key, team in pagination %}
     <div class="contenedor-principal" id="listar">
-        <div class="contenedor-expandir">
+        <div class="contenedor-expandir {% if team.active == 0 %}inactivo{% endif %}">
+            {% if team.active == 0 %}
+                <div class="overlay-inactivo">
+                    <p>INACTIVO</p>
+                </div>
+            {% endif %}
             <div class="expandible">
                 <div class="contenedor-persona">
                     <div class="contenedor-imagen-texto">
                         {% if logos is defined and logos[key] is not null %}
-                            {% if team.active == 1 %}
-                                <img src="data:image/jpeg;base64,{{ logos[key] }}" alt="{{ team.name }}" class="logo-team">
-                                <div>
-                                    <span class="titulo-card"><h2>{{ team.name }}</h2></span>
-                                </div>
-                            {% else %}
-                                <img src="data:image/jpeg;base64,{{ logos[key] }}" alt="{{ team.name }}" class="logo-team">
-                                <div>
-                                    <span class="titulo-card"><h2>{{ team.name }}</h2></span>
-                                    <span class="p-rol">Inactivo</span>
-                                </div>
-                            {% endif %}
-                        {% else %}
-                            {% if team.active == 1 %}
-                                <span class="titulo-card"><h2>{{ team.name }}</h2></span>
-                            {% else %}
-                                <div>
-                                    <span class="titulo-card"><h2>{{ team.name }}</h2></span>
-                                    <span class="p-rol">Inactivo</span>
-                                </div>
-                            {% endif %}
+                            <img src="data:image/jpeg;base64,{{ logos[key] }}" alt="{{ team.name }}" class="logo-team">
                         {% endif %}
+                        <div class="contenedor-informacion-equipo">
+                            <span class="titulo-card nombre-equipo"><h2>{{ team.name }}</h2></span>
+                            <div class="informacion-detalle">
+                                <div class="informacion-item">
+                                    <span class="p-rol">Deporte</span>
+                                    <span class="titulo-card">{{ team.sport.name }}</span>
+                                </div>
+                                <div class="informacion-item">
+                                    <span class="p-rol">Instituto</span>
+                                    <span class="titulo-card">{{ team.school }}</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="iconos">
                     {% if is_granted('ROLE_DEVELOPER') or is_granted('ROLE_ADMIN') %}
-                        <a href="{{ path('team_edit', {'id': team.id}) }}" class="boton"><i class="ti ti-edit a-botones"></i></a>
-                    {% endif %}
-                    <span class="desplegar"><i class="ti ti-chevron-down a-botones"></i></span>
-                </div>
-            </div>
-            <div class="contenedor-desplegable">
-                <div class="contenedor-informacion-desplegable">
-                    <div class="informacion">
-                        <h3>Escuela</h3>
-                        <p>{{ team.school }}</p>
-                    </div>
-                    <div class="informacion">
-                        <h3>Deporte</h3>
-                        <p>{{ team.sport.name }}</p>
-                    </div>
-                    {% if team.seasons %}
-                        <div class="informacion">
-                            <h3>Temporadas</h3>
-                            {% for season in team.seasons %}
-                                <p>{{ season.description }}</p>
-                            {% endfor %}
-                        </div>
+                        <a href="{{ path('team_edit', {'id': team.id}) }}" class="boton boton-equipo-editar"><i class="ti ti-edit a-botones"></i></a>
                     {% endif %}
                 </div>
             </div>

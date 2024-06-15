@@ -49,7 +49,7 @@ class TeamType extends AbstractType
                     return $entityRepository->createQueryBuilder('s')
                         ->orderBy('s.name');
                 },
-                'attr' => ['class' => 'form-select'],
+                'attr' => ['class' => 'form-select-deporte'],
                 'label_attr' => ['class' => 'form-label']
             ])
             ->add('logo', FileType::class, [
@@ -75,7 +75,8 @@ class TeamType extends AbstractType
                 'attr' => [
                     'class' => 'form-select-temporadas',
                 ],
-                'label_attr' => ['class' => 'form-label']
+                'label_attr' => ['class' => 'form-label'],
+                'by_reference' => false,
             ])
             ->add('active', CheckboxType::class, [
                 'label' => 'Activo',

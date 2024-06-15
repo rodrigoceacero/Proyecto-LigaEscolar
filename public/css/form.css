@@ -131,6 +131,28 @@ body {
     font-weight: bold;
 }
 
+.form-select-deporte{
+    box-sizing: border-box;
+    width: 40.5%;
+    padding: 0.6rem;
+    border-radius: 8px 0px 0px 8px;
+    font-size: 1rem;
+    font-family: 'Jost-ExtraLight', sans-serif;
+    font-weight: bold;
+    color: white;
+    -webkit-box-shadow: 2px 2px 21px -6px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 2px 21px -6px rgba(0,0,0,0.75);
+    box-shadow: 2px 2px 21px -6px rgba(0,0,0,0.75);
+}
+
+.form-select-deportes:focus {
+    border-color: rgba(55, 0, 0, 0.82);
+    outline: none;
+    -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+}
+
 .form-select-temporadas {
     box-sizing: border-box;
     width: 40.5%;
