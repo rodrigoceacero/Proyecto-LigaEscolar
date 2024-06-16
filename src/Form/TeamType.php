@@ -47,6 +47,7 @@ class TeamType extends AbstractType
                 'multiple' => false,
                 'query_builder' => function (EntityRepository $entityRepository) {
                     return $entityRepository->createQueryBuilder('s')
+                        ->where('s.active = true')
                         ->orderBy('s.name');
                 },
                 'attr' => ['class' => 'form-select-deporte'],
