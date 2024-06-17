@@ -11,7 +11,10 @@
         "doctrine/doctrine-bundle": "^2.12",
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^3.1",
+        "h4cc/wkhtmltoimage-amd64": "^0.12.4",
+        "h4cc/wkhtmltopdf-amd64": "^0.12.4",
         "knplabs/knp-paginator-bundle": "^5.9",
+        "knplabs/knp-snappy-bundle": "^1.10",
         "sensio/framework-extra-bundle": "^6.2",
         "symfony/asset": "5.4.*",
         "symfony/console": "5.4.*",
@@ -73,7 +76,7 @@
     },
     "extra": {
         "symfony": {
-            "allow-contrib": false,
+            "allow-contrib": true,
             "require": "5.4.*",
             "docker": false
         }

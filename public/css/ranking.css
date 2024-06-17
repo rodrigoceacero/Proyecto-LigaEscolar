@@ -43,3 +43,87 @@
     transition-property: all;
     transition-duration: 0.3s;
 }
+
+table {
+    border: 1px solid grey;
+    text-align: center;
+    border-collapse: collapse;
+    width: 60%; 
+    margin: 0 auto;
+    font-family: 'Jost-Bold', sans-serif;
+    box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+}
+
+table th, table td {
+    border: 1px solid grey;
+    padding: 8px;
+}
+
+table thead tr th{
+    font-weight: normal;
+}
+
+table tr:hover{
+    background-color: #f3e4e3
+}
+
+table thead tr:hover {
+    background-color: #992a25;
+}
+
+.texto-nombre {
+    text-align: left;
+}
+
+.bold{
+    font-weight: bold;
+}
+
+.subrayado-oscuro{
+    background-color: #992a25;
+    color: white;
+}
+
+.subrayado{
+    background-color: #f5e3e2;
+}
+
+.pdf{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.contenedor-footer-clasificacion{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    margin-top: 4rem;
+    flex-wrap: wrap;
+}
+
+.volver-clasificacion{
+    display: flex;
+    align-items: center;
+    height: 50px;
+    margin-left: 27rem;
+}
+
+.pdf{
+    margin-right: 27rem;
+    font-family: 'Jost-Medium', sans-serif;
+    background-color: #B40B00;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.pdf a{
+    color: white;
+    text-decoration: none;
+}
+
+.pdf:hover{
+    transform: scale(1.03);
+    transition-property: all;
+    transition-duration: 0.2s;
+}

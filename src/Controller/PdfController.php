@@ -1,60 +1,31 @@
-<?php
+<?php 
 
 namespace App\Controller;
 
+use Knp\Snappy\Pdf;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\GameMatchRepository;
 use App\Repository\SeasonRepository;
 use App\Repository\SportRepository;
 use App\Repository\TeamRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 
-class RankingController extends AbstractController
+class PdfController extends AbstractController
 {
-    #[Route('/ranking', name: 'ranking')]
-    public function index(
-        SportRepository $sportRepository
-    ): Response
-    {
-        $sports = $sportRepository->findOrderByNameSeasons();
-
-        return $this->render('ranking/listsports.html.twig', [
-            'sports' => $sports,
-        ]);
-    }
-
-    #[Route('/ranking/sport/{id}', name: 'ranking_sport')]
-    public function rankingSport(
-        int $id,
-        SportRepository $sportRepository,
-        SeasonRepository $seasonRepository
-    ): Response
-    {
-        $sport = $sportRepository->find($id);
-
-        $seasons = $seasonRepository->findBySport($sport);
-
-        return $this->render('ranking/listseasons.html.twig', [
-            'sport' => $sport,
-            'seasons' => $seasons,
-        ]);
-    }
-
-    #[Route('/ranking/sport/{idsport}/season/{idseason}', name: 'ranking_list')]
-    public function rankingSeason(
+    #[Route('/ranking/sport/{idsport}/season/{idseason}/pdf', name: 'generate_pdf')]
+    public function generatePdf(
         int $idsport,
         int $idseason,
         GameMatchRepository $gameMatchRepository,
         SportRepository $sportRepository,
         SeasonRepository $seasonRepository,
-        TeamRepository $teamRepository
-    ): Response
-    {
+        TeamRepository $teamRepository,
+        Pdf $knpSnappyPdf
+    ): Response {
         $sport = $sportRepository->find($idsport);
         $season = $seasonRepository->find($idseason);
         $teams = $teamRepository->findActiveBySportAndSeason($sport, $season);
-
         $rankingData = $gameMatchRepository->findRankingBySportAndSeason($idsport, $idseason);
 
         $rankingMap = [];
@@ -86,12 +57,22 @@ class RankingController extends AbstractController
             }
             return $team2['totalPoints'] - $team1['totalPoints'];
         });
-        
 
-        return $this->render('ranking/list.html.twig', [
+        $html = $this->renderView('generate/generatepdf.html.twig', [
+            'ranking' => $ranking,
             'sport' => $sport,
             'season' => $season,
-            'ranking' => $ranking,
         ]);
+
+        $fileName = sprintf('Clasificacion_%s_%s.pdf', $sport->getName(), $season->getDescription());
+
+        return new Response(
+            $knpSnappyPdf->getOutputFromHtml($html),
+            200,
+            [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => sprintf('attachment; filename="%s"', $fileName),
+            ]
+        );
     }
 }

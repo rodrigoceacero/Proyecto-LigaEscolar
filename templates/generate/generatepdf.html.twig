@@ -8,10 +8,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
 {% endblock %}
 
-{% block header %}
-    {% include 'navbar.html.twig' %}
-{% endblock %}
-
 {% block body %}
     <div class="contenedor-entrada">
         <h2 class="titulo-ranking">{{ sport.name }} - {{ season.description }}</h2>
@@ -44,13 +40,5 @@
             {% endfor %}
             </tbody>
         </table>
-    </div>
-    <div class="contenedor-footer-clasificacion">
-        <div class="volver-clasificacion">
-            <a href="{{ path('ranking_sport', { id: sport.id }) }}" class="boton-volver"><i class="ti ti-arrow-left icono-agregar"></i> Volver</a>
-        </div>
-        <div class="pdf">
-            <a href="{{ path('generate_pdf', { idsport: sport.id, idseason: season.id }) }}" class="boton-pdf"><i class="ti ti-file-type-pdf"></i> Generar PDF</a>
-        </div>
     </div>
 {% endblock %}
