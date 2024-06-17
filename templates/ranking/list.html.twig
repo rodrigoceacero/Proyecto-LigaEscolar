@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ sport.name }} - {{ season.description }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/cardmain.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/ranking.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('javascript/search.js') }}"></script>
+{% endblock %}
+
+{% block header %}
+    {% include 'navbar.html.twig' %}
+{% endblock %}
+
+{% block body %}
+    <div class="contenedor-entrada">
+        <h2 class="titulo-ranking">{{ sport.name }} - {{ season.description }}</h2>
+    </div>
+    <div class="contenedor-principal-ranking">
+        <table style="border: 3px solid black">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Equipo</th>
+                <th>PTS</th>
+                <th>PJ</th>
+                <th>PG</th>
+                <th>PE</th>
+                <th>PP</th>
+                <th>GF</th>
+            </tr>
+            </thead>
+            <tbody style="border: 3px solid black">
+            {% for team in ranking %}
+                <tr style="border: 3px solid black">
+                    <td style="border: 3px solid black">{{ loop.index }}</td>
+                    <td style="border: 3px solid black">{{ team.name }}</td>
+                    <td style="border: 3px solid black">{{ team.totalPoints }}</td>
+                    <td style="border: 3px solid black">{{ team.gamesPlayed }}</td>
+                    <td style="border: 3px solid black">{{ team.gamesWon }}</td>
+                    <td style="border: 3px solid black">{{ team.gamesDrawn }}</td>
+                    <td style="border: 3px solid black">{{ team.gamesLost }}</td>
+                    <td style="border: 3px solid black">{{ team.totalScore }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="contenedor-footer">
+        <div class="volver">
+            <a href="{{ path('ranking_sport', { id: sport.id }) }}" class="boton-volver"><i class="ti ti-arrow-left icono-agregar"></i> Volver</a>
+        </div>
+    </div>
+{% endblock %}

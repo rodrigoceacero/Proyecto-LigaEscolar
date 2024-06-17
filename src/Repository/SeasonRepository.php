@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Season;
+use App\Entity\Sport;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -31,6 +32,18 @@ class SeasonRepository extends ServiceEntityRepository
             ->setParameter('description', $description)
             ->getQuery();
     }
+
+    public function findBySport(Sport $sport): array
+    {
+        return $this->createQueryBuilder('s')
+            ->innerJoin('s.matchs', 'm')
+            ->andWhere('m.sport = :sport')
+            ->setParameter('sport', $sport)
+            ->orderBy('s.startDate', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
     public function add(Season $season)
     {
         $this->getEntityManager()->persist($season);

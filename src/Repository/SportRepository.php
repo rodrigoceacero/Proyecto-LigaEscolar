@@ -13,9 +13,12 @@ class SportRepository extends ServiceEntityRepository
         parent::__construct($registry, Sport::class);
     }
 
-    public function findOrderByName(){
+    public function findOrderByNameSeasons()
+    {
         return $this->createQueryBuilder('s')
-            ->select('s.id, s.name, s.duration, s.active')
+            ->select('DISTINCT s.id, s.name')
+            ->join('s.matchs', 'm')
+            ->where('m.id IS NOT NULL')
             ->orderBy('s.name')
             ->getQuery()
             ->getResult();

@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Temporadas de {{ sport.name | lower }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/cardmain.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/ranking.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('javascript/search.js') }}"></script>
+{% endblock %}
+
+{% block header %}
+    {% include 'navbar.html.twig' %}
+{% endblock %}
+
+{% block body %}
+    <div class="contenedor-entrada">
+        <h2 class="titulo-ranking">Selecciona una temporada de {{ sport.name | lower }}</h2>
+    </div>
+    <div class="contenedor-principal-ranking">
+        {% for season in seasons %}
+            <div class="contenedor-ranking">
+                <a href="{{ path('ranking_list', {idsport: sport.id, idseason: season.id}) }}" class="link-ranking">
+                    <div class="informacion-ranking">
+                        <span class="titulo-card"><h2>{{ season.description }}</h2></span>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="contenedor-footer">
+        <div class="volver">
+            <a href="{{ path('ranking') }}" class="boton-volver"><i class="ti ti-arrow-left icono-agregar"></i> Volver</a>
+        </div>
+    </div>
+{% endblock %}
