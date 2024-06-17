@@ -461,3 +461,15 @@ body {
 .informacion-item:not(:last-child) {
     margin-right: 2rem;
 }
+
+.vs{
+    font-size: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.resultado{
+    font-size: 1.8rem;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+}

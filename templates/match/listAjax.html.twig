@@ -1,0 +1,47 @@
+{% for match in pagination %}
+    <div class="contenedor-principal {% if match.status == 0 %}programado{% else %}acabado{% endif %}">
+        <div class="contenedor-expandir">
+            <div class="expandible">
+                <div class="contenedor-persona">
+                    {% set teamLocal = match.teams|filter(team => team.orderNumber == 0)|first %}
+                    {% set teamVisitante = match.teams|filter(team => team.orderNumber != 0)|first %}
+                    {% if teamLocal and teamVisitante %}
+                        {% if match.status == 1 %}
+                            <span class="p-rol"><h2> Finalizado </h2></span>
+                            <span class="titulo-card"><h2>{{ teamLocal.team.name }} <span class="resultado">{{ teamLocal.score }} - {{ teamVisitante.score }}</span> {{ teamVisitante.team.name }}</h2></span>
+                        {% else %}
+                            <span class="p-rol"><h2> Por jugar - {{ match.schedule|date('d/m/Y - H:m') }}</h2></span>
+                            <span class="titulo-card"><h2>{{ teamLocal.team.name }} <span class="vs">VS</span> {{ teamVisitante.team.name }}</h2></span>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <div class="iconos">
+                    {% if is_granted('ROLE_DEVELOPER') or is_granted('ROLE_ADMIN') %}
+                        {% if match.status == 0 %}
+                            <a href="{{ path('match_edit', {'id': match.id}) }}" class="boton"><i class="ti ti-edit a-botones"></i></a>
+                        {% endif %}
+                    {% endif %}
+                    <span class="desplegar"><i class="ti ti-chevron-down a-botones"></i></span>
+                </div>
+            </div>
+            <div class="contenedor-desplegable">
+                <div class="contenedor-informacion-desplegable">
+                    <div class="informacion">
+                        <h3>Deporte / Temporada</h3>
+                        <p>{{ match.sport.name }} - {{ match.season.description }}</p>
+                    </div>
+                    <div class="informacion">
+                        <h3>Ubicación</h3>
+                        <p>{{ teamLocal.team.school }}</p>  
+                    </div>
+                    {% if match.status == 1 %}
+                        <div class="informacion">
+                            <h3>Fecha</h3>
+                            <p>{{ match.schedule|date('d/m/Y - H:m') }}</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}

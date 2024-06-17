@@ -52,6 +52,21 @@ class GameMatchRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
+    public function findByNamePaginate(string $details)
+    {
+        return $this->createQueryBuilder('gm')
+        ->select('gm', 'teams', 'season', 'sport', 'team')
+        ->join('gm.season', 'season')
+        ->join('gm.sport', 'sport')
+        ->leftJoin('gm.teams', 'teams')
+        ->leftJoin('teams.team', 'team')
+        ->where('gm.details LIKE :details')
+        ->setParameter('details', $details)
+        ->orderBy('sport.name')
+        ->addOrderBy('gm.schedule')
+        ->getQuery();
+    }
+
     public function add(GameMatch $match)
     {
         $this->getEntityManager()->persist($match);

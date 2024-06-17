@@ -1,0 +1,131 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Editar partido
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkbox = document.querySelector('[name$="[status]"]');
+            const teamForms = document.querySelectorAll('.team-form');
+            
+            const updateScore = () => {
+                const disabled = !checkbox.checked;
+                teamForms.forEach(teamForm => {
+                    const pointsField = teamForm.querySelector('[name$="[score]"]');
+                    const pointsFieldPoints = teamForm.querySelector('[name$="[points]"]');
+                    pointsField.disabled = disabled;
+                    pointsFieldPoints.disabled = true;
+                });
+            };
+
+            const updatePoints = () => {
+                const score1 = teamForms[0].querySelector('[name$="[score]"]');
+                const score2 = teamForms[1].querySelector('[name$="[score]"]');
+                const points1 = teamForms[0].querySelector('[name$="[points]"]');
+                const points2 = teamForms[1].querySelector('[name$="[points]"]');
+
+                const scoreValue1 = parseInt(score1.value);
+                const scoreValue2 = parseInt(score2.value);
+
+                if (scoreValue1 > scoreValue2) {
+                    points1.value = '3';
+                    points2.value = '0';
+                } else if (scoreValue1 < scoreValue2) {
+                    points1.value = '0';
+                    points2.value = '3';
+                } else {
+                    points1.value = '1';
+                    points2.value = '1';
+                }
+            };
+
+            checkbox.addEventListener('change', updateScore);
+            teamForms.forEach(teamForm => {
+                const scoreField = teamForm.querySelector('[name$="[score]"]');
+                scoreField.addEventListener('change', updatePoints);
+            });
+
+            updateScore(); 
+        });
+    </script>
+{% endblock %}
+
+{% block header %}
+    {% include 'navbar.html.twig' %}
+{% endblock %}
+
+{% block body %}
+    {% for message in app.flashes('error') %}
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: '{{ message }}'
+            });
+        </script>
+    {% endfor %}
+    <div class="contenedor">
+        <div class="contenedor-cabecera">
+            <div>
+                <h2 class="titulo-form">
+                    Editar datos del partido {{ match.details }}
+                </h2>
+            </div>
+        </div>
+        <div class="contenedor-form">
+            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+            <div>
+                {{ form_label(form.schedule) }}
+                {{ form_widget(form.schedule) }}
+                <div class="error">{{ form_errors(form.schedule) }}</div>
+            </div>
+            <div>
+                {{ form_label(form.location) }}
+                {{ form_widget(form.location) }}
+                <div class="error">{{ form_errors(form.location) }}</div>
+            </div>
+            <div>
+                {{ form_label(form.status) }}
+                {{ form_widget(form.status) }}
+                <div class="error">{{ form_errors(form.status) }}</div>
+            </div>
+            <div>
+                {{ form_label(form.details) }}
+                {{ form_widget(form.details) }}
+                <div class="error">{{ form_errors(form.details) }}</div>
+            </div>
+            <br>
+            <div>
+                {% for teamForm in form.teams %}
+                    <div class="team-form">
+                        <h4 style="font-family: 'Jost-Medium';">Puntuación de {{ teamForm.vars.data.team.name }}</h4>
+                        <div>
+                            {{ form_label(teamForm.points) }}
+                            {{ form_widget(teamForm.points) }}
+                            <div class="error">{{ form_errors(teamForm.points) }}</div>
+                        </div>
+                        <div>
+                            {{ form_label(teamForm.score) }}
+                            {{ form_widget(teamForm.score) }}
+                            <div class="error">{{ form_errors(teamForm.score) }}</div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="contenedor-footer-form">
+            <button type="submit" class="btn-guardar-form">Guardar <i class="ti ti-device-floppy"></i></button>
+            {{ form_end(form) }}
+            <a href="{{ path('matchs') }}" class="boton-volver-form"><i class="ti ti-arrow-left icono-agregar"></i> Volver</a>
+        </div>
+    </div>
+{% endblock %}
