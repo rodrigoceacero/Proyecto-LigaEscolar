@@ -45,7 +45,7 @@ class PersonType extends AbstractType
                 'required' => true,
                 'placeholder' => 'Seleccione un equipo...',
                 'attr' => [
-                    'class' => 'form-select',
+                    'class' => 'form-select form-select-deporte',
                 ]
             ])
             ->add('isPlayer', CheckboxType::class, [
