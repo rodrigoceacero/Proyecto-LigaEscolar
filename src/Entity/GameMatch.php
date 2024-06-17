@@ -17,8 +17,8 @@ class GameMatch
     private ?\DateTime $schedule;
     #[ORM\Column(type: 'string')]
     private ?string $location;
-    #[ORM\Column(type: 'string')]
-    private ?string $status;
+    #[ORM\Column(type: 'boolean')]
+    private ?bool $status;
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $details;
     #[ORM\ManyToOne(inversedBy: 'matchs')]
@@ -58,12 +58,12 @@ class GameMatch
         $this->location = $location;
     }
 
-    public function isStatus(): bool
+    public function getStatus(): ?bool
     {
         return $this->status;
     }
 
-    public function setStatus(bool $status): void
+    public function setStatus(?bool $status): void
     {
         $this->status = $status;
     }

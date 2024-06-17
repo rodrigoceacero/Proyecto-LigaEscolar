@@ -49,7 +49,7 @@ final class GameMatchFactory extends ModelFactory
         return [
             'location' => self::faker()->sentence(1),
             'schedule' => self::faker()->dateTimeBetween('-1 year', '+1 year'),
-            'status' => self::faker()->randomElement(['Programado', 'En curso', 'Terminado']),
+            'status' => self::faker()->boolean(),
             'details' => self::faker()->text(20),
         ];
     }
