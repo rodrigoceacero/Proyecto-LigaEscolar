@@ -12,6 +12,19 @@ class TeamRepository extends ServiceEntityRepository
         parent::__construct($registry, Team::class);
     }
 
+    public function findActiveBySportAndSeason($sport, $season)
+    {
+        return $this->createQueryBuilder('t')
+            ->join('t.seasons', 's')
+            ->where('t.sport = :sport')
+            ->andWhere('s.id = :season')
+            ->andWhere('t.active = 1')
+            ->setParameter('sport', $sport)
+            ->setParameter('season', $season)
+            ->getQuery()
+            ->getResult();
+    }
+
     public function findByNamePaginate(string $name){
         return $this->createQueryBuilder('t')
             ->select('t, sport, season')
