@@ -42,7 +42,7 @@ class GameMatchController extends AbstractController
                 'found' => $found
             ]);
         }
-        //dd($pagination);
+
         return $this->render('match/list.html.twig', [
             'pagination' => $pagination
         ]);
@@ -60,8 +60,10 @@ class GameMatchController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $gameMatchRepository->save();
-            $teamMatchGameRepository->save();
+            foreach ($match->getTeams() as $teamMatchGame) {
+                $teamMatchGameRepository->save($teamMatchGame, false);
+            }
+            $gameMatchRepository->save($match);
             $this->addFlash('updated', 'Partido actualizado correctamente');
             return $this->redirectToRoute('matchs');
         }

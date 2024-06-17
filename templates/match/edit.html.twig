@@ -12,18 +12,18 @@
 
 {% block javascripts %}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-        <script>
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             const checkbox = document.querySelector('[name$="[status]"]');
             const teamForms = document.querySelectorAll('.team-form');
-            
-            const updateScore = () => {
+
+            const updateFields = () => {
                 const disabled = !checkbox.checked;
                 teamForms.forEach(teamForm => {
-                    const pointsField = teamForm.querySelector('[name$="[score]"]');
-                    const pointsFieldPoints = teamForm.querySelector('[name$="[points]"]');
-                    pointsField.disabled = disabled;
-                    pointsFieldPoints.disabled = true;
+                    const scoreField = teamForm.querySelector('[name$="[score]"]');
+                    const pointsField = teamForm.querySelector('[name$="[points]"]');
+                    scoreField.disabled = disabled;
+                    pointsField.disabled = true;
                 });
             };
 
@@ -33,8 +33,8 @@
                 const points1 = teamForms[0].querySelector('[name$="[points]"]');
                 const points2 = teamForms[1].querySelector('[name$="[points]"]');
 
-                const scoreValue1 = parseInt(score1.value);
-                const scoreValue2 = parseInt(score2.value);
+                const scoreValue1 = parseInt(score1.value) || 0;
+                const scoreValue2 = parseInt(score2.value) || 0;
 
                 if (scoreValue1 > scoreValue2) {
                     points1.value = '3';
@@ -48,13 +48,25 @@
                 }
             };
 
-            checkbox.addEventListener('change', updateScore);
+            checkbox.addEventListener('change', updateFields);
             teamForms.forEach(teamForm => {
                 const scoreField = teamForm.querySelector('[name$="[score]"]');
-                scoreField.addEventListener('change', updatePoints);
+                scoreField.addEventListener('input', updatePoints);
             });
 
-            updateScore(); 
+            // Ensure fields are correctly initialized
+            updateFields();
+
+            // Enable points fields before submitting the form
+            const form = document.querySelector('form');
+            form.addEventListener('submit', function() {
+                teamForms.forEach(teamForm => {
+                    const scoreField = teamForm.querySelector('[name$="[score]"]');
+                    const pointsField = teamForm.querySelector('[name$="[points]"]');
+                    scoreField.disabled = false;
+                    pointsField.disabled = false;
+                });
+            });
         });
     </script>
 {% endblock %}
@@ -110,12 +122,12 @@
                         <h4 style="font-family: 'Jost-Medium';">Puntuación de {{ teamForm.vars.data.team.name }}</h4>
                         <div>
                             {{ form_label(teamForm.points) }}
-                            {{ form_widget(teamForm.points) }}
+                            {{ form_widget(teamForm.points, {'attr': {'disabled': true}}) }}
                             <div class="error">{{ form_errors(teamForm.points) }}</div>
                         </div>
                         <div>
                             {{ form_label(teamForm.score) }}
-                            {{ form_widget(teamForm.score) }}
+                            {{ form_widget(teamForm.score, {'attr': {'value': '', 'disabled': true}}) }}
                             <div class="error">{{ form_errors(teamForm.score) }}</div>
                         </div>
                     </div>

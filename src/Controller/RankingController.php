@@ -18,7 +18,9 @@ class RankingController extends AbstractController
     ): Response
     {
         $sports = $sportRepository->findOrderByNameSeasons();
-
+        if (!$sports){
+            return $this->redirectToRoute('main_app');
+        }
         return $this->render('ranking/listsports.html.twig', [
             'sports' => $sports,
         ]);
@@ -32,8 +34,11 @@ class RankingController extends AbstractController
     ): Response
     {
         $sport = $sportRepository->find($id);
-
         $seasons = $seasonRepository->findBySport($sport);
+
+        if (!$sport || !$seasons){
+            return $this->redirectToRoute('main_app');
+        }
 
         return $this->render('ranking/listseasons.html.twig', [
             'sport' => $sport,

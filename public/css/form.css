@@ -92,6 +92,14 @@ body {
     box-shadow: 2px 2px 21px -6px rgba(0,0,0,0.75);
 }
 
+.form-input:disabled {
+    background-color: #d8d8d8;
+}
+
+.form-input.error:disabled {
+    background-color: white;
+}
+
 .form-input-date {
     width: 25%;
     padding: 0.5rem;
